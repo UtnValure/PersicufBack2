@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+namespace CORE.DTOs
+{
+    public class DomicilioDTO
+    {
+        public string Calle {  get; set; }
+        public int Altura { get; set; }
+        public string Departamento { get; set; }
+        public int UsuarioID { get; set; }
+        public int LocalidadID { get; set; }
+
+    }
+
+    public class DomicilioDTOconID : DomicilioDTO
+    { 
+    public int ID { get; set; }
+    }
+}
