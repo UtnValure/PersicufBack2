@@ -9,19 +9,19 @@ namespace Persicuf.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class CorteCuelloController : ControllerBase
     {
-        private readonly IUsuarioServicio _servicio;
+        private readonly ICorteCuelloServicio _servicio;
 
-        public UsuarioController(IUsuarioServicio servicio)
+        public CorteCuelloController(ICorteCuelloServicio servicio)
         {
             _servicio = servicio;
         }
 
-        [HttpPut("modificarUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> modificarUsuario(int ID, UsuarioDTO usuarioDTO)
+        [HttpPut("modificarCorteCuello")]
+        public async Task<ActionResult<Confirmacion<CorteCuelloDTO>>> modificarCorteCuello(int ID, CorteCuelloDTO corteCuelloDTO)
         {
-            var respuesta = await _servicio.PutUsuario(ID, usuarioDTO);
+            var respuesta = await _servicio.PutCorteCuello(ID, corteCuelloDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -33,10 +33,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPost("crearUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> crearUsuario(UsuarioDTO usuarioDTO)
+        [HttpPost("crearCorteCuello")]
+        public async Task<ActionResult<Confirmacion<CorteCuelloDTO>>> crearCorteCuello(CorteCuelloDTO corteCuelloDTO)
         {
-            var respuesta = await _servicio.PostUsuario(usuarioDTO);
+            var respuesta = await _servicio.PostCorteCuello(corteCuelloDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -49,10 +49,10 @@ namespace Persicuf.Controllers
         }
 
 
-        [HttpGet("obtenerUsuarios")]
-        public async Task<ActionResult<Confirmacion<ICollection<UsuarioDTOconID>>>> obtenerUsuarios()
+        [HttpGet("obtenerCortesCuello")]
+        public async Task<ActionResult<Confirmacion<ICollection<CorteCuelloDTOconID>>>> obtenerCortesCuello()
         {
-            var respuesta = await _servicio.GetUsuario();
+            var respuesta = await _servicio.GetCorteCuello();
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -64,10 +64,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpDelete("eliminarUsuario")]
-        public async Task<ActionResult<Confirmacion<Usuario>>> eliminarUsuario(int ID)
+        [HttpDelete("eliminarCorteCuello")]
+        public async Task<ActionResult<Confirmacion<CorteCuello>>> eliminarCorteCuello(int ID)
         {
-            var respuesta = await _servicio.DeleteUsuario(ID);
+            var respuesta = await _servicio.DeleteCorteCuello(ID);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -79,20 +79,6 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPatch("modificarPermisoUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTOconID>>> modificarUsuarioRol(int ID, int PermisoID)
-        {
-            var respuesta = await _servicio.PatchUsuarioPermiso(ID, PermisoID);
-            if (respuesta.Datos == null)
-            {
-                if (respuesta.Mensaje.StartsWith("Error"))
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
-                }
-                return NotFound(respuesta);
-            }
-            return Ok(respuesta);
-        }
     }
 
 }

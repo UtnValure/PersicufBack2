@@ -9,19 +9,19 @@ namespace Persicuf.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class UbicacionController : ControllerBase
     {
-        private readonly IUsuarioServicio _servicio;
+        private readonly IUbicacionServicio _servicio;
 
-        public UsuarioController(IUsuarioServicio servicio)
+        public UbicacionController(IUbicacionServicio servicio)
         {
             _servicio = servicio;
         }
 
-        [HttpPut("modificarUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> modificarUsuario(int ID, UsuarioDTO usuarioDTO)
+        [HttpPut("modificarUbicacion")]
+        public async Task<ActionResult<Confirmacion<UbicacionDTO>>> modificarUbicacion(int ID, UbicacionDTO ubicacionDTO)
         {
-            var respuesta = await _servicio.PutUsuario(ID, usuarioDTO);
+            var respuesta = await _servicio.PutUbicacion(ID, ubicacionDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -33,10 +33,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPost("crearUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> crearUsuario(UsuarioDTO usuarioDTO)
+        [HttpPost("crearUbicacion")]
+        public async Task<ActionResult<Confirmacion<UbicacionDTO>>> crearUbicacion(UbicacionDTO ubicacionDTO)
         {
-            var respuesta = await _servicio.PostUsuario(usuarioDTO);
+            var respuesta = await _servicio.PostUbicacion(ubicacionDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -49,10 +49,10 @@ namespace Persicuf.Controllers
         }
 
 
-        [HttpGet("obtenerUsuarios")]
-        public async Task<ActionResult<Confirmacion<ICollection<UsuarioDTOconID>>>> obtenerUsuarios()
+        [HttpGet("obtenerUbicaciones")]
+        public async Task<ActionResult<Confirmacion<ICollection<UbicacionDTOconID>>>> obtenerUbicaciones()
         {
-            var respuesta = await _servicio.GetUsuario();
+            var respuesta = await _servicio.GetUbicacion();
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -64,10 +64,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpDelete("eliminarUsuario")]
-        public async Task<ActionResult<Confirmacion<Usuario>>> eliminarUsuario(int ID)
+        [HttpDelete("eliminarUbicacion")]
+        public async Task<ActionResult<Confirmacion<Ubicacion>>> eliminarUbicacion(int ID)
         {
-            var respuesta = await _servicio.DeleteUsuario(ID);
+            var respuesta = await _servicio.DeleteUbicacion(ID);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -79,20 +79,6 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPatch("modificarPermisoUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTOconID>>> modificarUsuarioRol(int ID, int PermisoID)
-        {
-            var respuesta = await _servicio.PatchUsuarioPermiso(ID, PermisoID);
-            if (respuesta.Datos == null)
-            {
-                if (respuesta.Mensaje.StartsWith("Error"))
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
-                }
-                return NotFound(respuesta);
-            }
-            return Ok(respuesta);
-        }
     }
 
 }

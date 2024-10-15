@@ -9,19 +9,19 @@ namespace Persicuf.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class TalleNumericoController : ControllerBase
     {
-        private readonly IUsuarioServicio _servicio;
+        private readonly ITalleNumericoServicio _servicio;
 
-        public UsuarioController(IUsuarioServicio servicio)
+        public TalleNumericoController(ITalleNumericoServicio servicio)
         {
             _servicio = servicio;
         }
 
-        [HttpPut("modificarUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> modificarUsuario(int ID, UsuarioDTO usuarioDTO)
+        [HttpPut("modificarTalleNumerico")]
+        public async Task<ActionResult<Confirmacion<TalleNumericoDTO>>> modificarTalleNumerico(int ID, TalleNumericoDTO talleNumericoDTO)
         {
-            var respuesta = await _servicio.PutUsuario(ID, usuarioDTO);
+            var respuesta = await _servicio.PutTalleNumerico(ID, talleNumericoDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -33,10 +33,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPost("crearUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> crearUsuario(UsuarioDTO usuarioDTO)
+        [HttpPost("crearTalleNumerico")]
+        public async Task<ActionResult<Confirmacion<TalleNumericoDTO>>> crearTalleNumerico(TalleNumericoDTO talleNumericoDTO)
         {
-            var respuesta = await _servicio.PostUsuario(usuarioDTO);
+            var respuesta = await _servicio.PostTalleNumerico(talleNumericoDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -49,10 +49,10 @@ namespace Persicuf.Controllers
         }
 
 
-        [HttpGet("obtenerUsuarios")]
-        public async Task<ActionResult<Confirmacion<ICollection<UsuarioDTOconID>>>> obtenerUsuarios()
+        [HttpGet("obtenerTallesNumerico")]
+        public async Task<ActionResult<Confirmacion<ICollection<TalleNumericoDTOconID>>>> obtenerTallesNumerico()
         {
-            var respuesta = await _servicio.GetUsuario();
+            var respuesta = await _servicio.GetTalleNumerico();
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -64,10 +64,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpDelete("eliminarUsuario")]
-        public async Task<ActionResult<Confirmacion<Usuario>>> eliminarUsuario(int ID)
+        [HttpDelete("eliminarTalleNumerico")]
+        public async Task<ActionResult<Confirmacion<TalleNumerico>>> eliminarTalleNumerico(int ID)
         {
-            var respuesta = await _servicio.DeleteUsuario(ID);
+            var respuesta = await _servicio.DeleteTalleNumerico(ID);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -79,20 +79,6 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPatch("modificarPermisoUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTOconID>>> modificarUsuarioRol(int ID, int PermisoID)
-        {
-            var respuesta = await _servicio.PatchUsuarioPermiso(ID, PermisoID);
-            if (respuesta.Datos == null)
-            {
-                if (respuesta.Mensaje.StartsWith("Error"))
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
-                }
-                return NotFound(respuesta);
-            }
-            return Ok(respuesta);
-        }
     }
 
 }

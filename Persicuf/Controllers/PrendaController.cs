@@ -4,24 +4,26 @@ using DB.Models;
 using Servicios.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Persicuf.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class PrendaController : ControllerBase
     {
-        private readonly IUsuarioServicio _servicio;
+        private readonly IPrendaServicio _servicio;
 
-        public UsuarioController(IUsuarioServicio servicio)
+        public PrendaController(IPrendaServicio servicio)
         {
             _servicio = servicio;
         }
 
-        [HttpPut("modificarUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> modificarUsuario(int ID, UsuarioDTO usuarioDTO)
+        [HttpPut("modificarPrenda")]
+        public async Task<ActionResult<Confirmacion<PrendaDTO>>> modificarPrenda(int ID, PrendaDTO prendaDTO)
         {
-            var respuesta = await _servicio.PutUsuario(ID, usuarioDTO);
+            var respuesta = await _servicio.PutPrenda(ID, prendaDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -33,10 +35,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPost("crearUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTO>>> crearUsuario(UsuarioDTO usuarioDTO)
+        [HttpPost("crearPrenda")]
+        public async Task<ActionResult<Confirmacion<PrendaDTO>>> crearPrenda(PrendaDTO prendaDTO)
         {
-            var respuesta = await _servicio.PostUsuario(usuarioDTO);
+            var respuesta = await _servicio.PostPrenda(prendaDTO);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -49,10 +51,10 @@ namespace Persicuf.Controllers
         }
 
 
-        [HttpGet("obtenerUsuarios")]
-        public async Task<ActionResult<Confirmacion<ICollection<UsuarioDTOconID>>>> obtenerUsuarios()
+        [HttpGet("obtenerPrendas")]
+        public async Task<ActionResult<Confirmacion<ICollection<PrendaDTOconID>>>> obtenerPrendas()
         {
-            var respuesta = await _servicio.GetUsuario();
+            var respuesta = await _servicio.GetPrenda();
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -64,10 +66,10 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpDelete("eliminarUsuario")]
-        public async Task<ActionResult<Confirmacion<Usuario>>> eliminarUsuario(int ID)
+        [HttpDelete("eliminarPrenda")]
+        public async Task<ActionResult<Confirmacion<Prenda>>> eliminarPrenda(int ID)
         {
-            var respuesta = await _servicio.DeleteUsuario(ID);
+            var respuesta = await _servicio.DeletePrenda(ID);
             if (respuesta.Datos == null)
             {
                 if (respuesta.Mensaje.StartsWith("Error"))
@@ -79,20 +81,6 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPatch("modificarPermisoUsuario")]
-        public async Task<ActionResult<Confirmacion<UsuarioDTOconID>>> modificarUsuarioRol(int ID, int PermisoID)
-        {
-            var respuesta = await _servicio.PatchUsuarioPermiso(ID, PermisoID);
-            if (respuesta.Datos == null)
-            {
-                if (respuesta.Mensaje.StartsWith("Error"))
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
-                }
-                return NotFound(respuesta);
-            }
-            return Ok(respuesta);
-        }
     }
 
 }
