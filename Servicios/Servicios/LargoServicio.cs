@@ -93,7 +93,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var largoDB = await _context.Largos.FirstOrDefaultAsync(x => x.Descripcion == largoDTO.Descripcion);
+                var largoDB = await _context.Largos.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == largoDTO.Descripcion);
                 if (largoDB == null)
                 {
                     var largoNuevo = largoDTO.Adapt<Largo>();

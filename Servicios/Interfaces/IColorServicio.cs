@@ -10,7 +10,7 @@ namespace Servicios.Interfaces
     public interface IColorServicio
     {
         Task<Confirmacion<ICollection<ColorDTOconID>>> GetColor();
-        Task<Confirmacion<ColorDTO>> PostColor(ColorDTO ColorDTO);
+        Task<Confirmacion<ColorDTO>> PostColor(ColorDTO colorDTO);
         Task<Confirmacion<Color>> DeleteColor(int ID);
         Task<Confirmacion<ColorDTO>> PutColor(int ID, ColorDTO ColorDTO);
     }

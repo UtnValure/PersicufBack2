@@ -96,7 +96,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var talleNumericoDB = await _context.TallesNumericos.FirstOrDefaultAsync(x => x.Descripcion == talleNumericoDTO.Descripcion);
+                var talleNumericoDB = await _context.TallesNumericos.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == talleNumericoDTO.Descripcion);
                 if (talleNumericoDB == null)
                 {
                     var talleNumericoNuevo = talleNumericoDTO.Adapt<TalleNumerico>();

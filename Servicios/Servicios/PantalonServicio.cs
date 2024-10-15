@@ -96,7 +96,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var pantalonDB = await _context.Pantalones.FirstOrDefaultAsync(x => x.Prenda.Nombre == pantalonDTO.Nombre);
+                var pantalonDB = await _context.Pantalones.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == pantalonDTO.Nombre);
                 if (pantalonDB == null)
                 {
                     var pantalonNuevo = pantalonDTO.Adapt<Pantalon>();

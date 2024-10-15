@@ -11,7 +11,7 @@ namespace Servicios.Interfaces
     public interface IUsuarioServicio
     {
         Task<Confirmacion<ICollection<UsuarioDTOconID>>> GetUsuario();
-        Task<Confirmacion<UsuarioDTO>> PostUsuario(UsuarioDTO UsuarioDTO);
+        Task<Confirmacion<UsuarioDTO>> PostUsuario(UsuarioDTO usuarioDTO);
         Task<Confirmacion<Usuario>> DeleteUsuario(int ID);
         Task<Confirmacion<UsuarioDTO>> PutUsuario(int ID, UsuarioDTO UsuarioDTO);
         Task<Confirmacion<UsuarioDTOconID>> PatchUsuarioPermiso(int ID, int PermisoID );

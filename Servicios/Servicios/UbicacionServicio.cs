@@ -93,7 +93,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var ubicacionDB = await _context.Ubicaciones.FirstOrDefaultAsync(x => x.Descripcion == ubicacionDTO.Descripcion);
+                var ubicacionDB = await _context.Ubicaciones.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == ubicacionDTO.Descripcion);
                 if (ubicacionDB == null)
                 {
                     var ubicacionNuevo = ubicacionDTO.Adapt<Ubicacion>();

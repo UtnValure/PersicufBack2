@@ -10,6 +10,7 @@ namespace CORE.DTOs
     public class ColorDTO
     {
         public string CodigoHexa { get; set; }
+        public string Nombre { get; set; }
     }
 
     public class ColorDTOconID : ColorDTO 

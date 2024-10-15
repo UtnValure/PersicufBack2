@@ -95,7 +95,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var prendaEstampadoDB = await _context.PrendaEstampados.FirstOrDefaultAsync(x => x.UbicacionID == prendaEstampadoDTO.UbicacionID && x.ImagenID == prendaEstampadoDTO.ImagenID);
+                var prendaEstampadoDB = await _context.PrendaEstampados.AsNoTracking().FirstOrDefaultAsync(x => x.UbicacionID == prendaEstampadoDTO.UbicacionID && x.ImagenID == prendaEstampadoDTO.ImagenID);
                 if (prendaEstampadoDB == null)
                 {
                     var prendaEstampadoNuevo = prendaEstampadoDTO.Adapt<PrendaEstampado>();

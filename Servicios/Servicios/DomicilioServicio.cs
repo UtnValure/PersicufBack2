@@ -96,7 +96,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var domicilioDB = await _context.Domicilios.FirstOrDefaultAsync(x => x.UsuarioID == domicilioDTO.UsuarioID);
+                var domicilioDB = await _context.Domicilios.AsNoTracking().FirstOrDefaultAsync(x => x.UsuarioID == domicilioDTO.UsuarioID);
                 if (domicilioDB == null)
                 {
                     var domicilioNuevo = domicilioDTO.Adapt<Domicilio>();

@@ -95,7 +95,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var pedidoPrendaDB = await _context.PedidosPrenda.FirstOrDefaultAsync(x => x.PedidoID == pedidoPrendaDTO.PedidoID && x.PrendaID == pedidoPrendaDTO.PrendaID);
+                var pedidoPrendaDB = await _context.PedidosPrenda.AsNoTracking().FirstOrDefaultAsync(x => x.PedidoID == pedidoPrendaDTO.PedidoID && x.PrendaID == pedidoPrendaDTO.PrendaID);
                 if (pedidoPrendaDB == null)
                 {
                     var pedidoPrendaNuevo = pedidoPrendaDTO.Adapt<PedidoPrenda>();

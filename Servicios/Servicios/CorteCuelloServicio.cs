@@ -94,7 +94,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var corteCuelloDB = await _context.CortesCuello.FirstOrDefaultAsync(x => x.Descripcion == corteCuelloDTO.Descripcion);
+                var corteCuelloDB = await _context.CortesCuello.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == corteCuelloDTO.Descripcion);
                 if (corteCuelloDB == null)
                 {
                     var corteCuelloNuevo = corteCuelloDTO.Adapt<CorteCuello>();

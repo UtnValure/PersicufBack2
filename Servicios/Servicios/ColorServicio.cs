@@ -9,7 +9,6 @@ using DB.Data;
 using CORE.DTOs;
 using Servicios.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
 
 namespace Servicios.Servicios
 {
@@ -68,6 +67,7 @@ namespace Servicios.Servicios
                         {
                             ID = color.ColorID,
                             CodigoHexa = color.CodigoHexa,
+                            Nombre = color.ColorNombre,
 
                         });
                     }
@@ -94,10 +94,10 @@ namespace Servicios.Servicios
 
             try
             {
-                var colorDB = await _context.Colores.FirstOrDefaultAsync(x => x.CodigoHexa == colorDTO.CodigoHexa);
+                var colorDB = await _context.Colores.AsNoTracking().FirstOrDefaultAsync(x => x.CodigoHexa == colorDTO.CodigoHexa);
                 if (colorDB == null)
                 {
-                    var colorNuevo = colorDTO.Adapt<DB.Models.Color>();
+                    var colorNuevo = colorDTO.Adapt<Color>();
                     await _context.Colores.AddAsync(colorNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;
@@ -126,6 +126,7 @@ namespace Servicios.Servicios
                 if (colorBD != null)
                 {
                     colorBD.CodigoHexa = colorDTO.CodigoHexa;
+                    colorBD.ColorNombre = colorDTO.Nombre;
 
 
                     await _context.SaveChangesAsync();

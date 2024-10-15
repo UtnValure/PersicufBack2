@@ -94,7 +94,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var provinciaBD = await _context.Provincias.FirstOrDefaultAsync(x => x.ProvinciaNombre == provinciaDTO.Nombre);
+                var provinciaBD = await _context.Provincias.AsNoTracking().FirstOrDefaultAsync(x => x.ProvinciaNombre == provinciaDTO.Nombre);
                 if (provinciaBD == null)
                 {
                     var ProvinciaNueva = provinciaDTO.Adapt<Provincia>();

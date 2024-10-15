@@ -89,7 +89,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var localidadDB = await _context.Localidades.FirstOrDefaultAsync(x => x.Nombre == localidadDTO.Nombre);
+                var localidadDB = await _context.Localidades.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == localidadDTO.Nombre);
                 if (localidadDB == null)
                 {
                     var localidadNuevo = localidadDTO.Adapt<Localidad>();

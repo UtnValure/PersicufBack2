@@ -97,7 +97,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var remeraDB = await _context.Remeras.FirstOrDefaultAsync(x => x.Prenda.Nombre == remeraDTO.Nombre);
+                var remeraDB = await _context.Remeras.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == remeraDTO.Nombre);
                 if (remeraDB == null)
                 {
                     var remeraNuevo = remeraDTO.Adapt<Remera>();

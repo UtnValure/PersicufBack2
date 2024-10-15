@@ -93,7 +93,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var permisoDB = await _context.Permisos.FirstOrDefaultAsync(x => x.Descripcion == permisoDTO.Descripcion);
+                var permisoDB = await _context.Permisos.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == permisoDTO.Descripcion);
                 if (permisoDB == null)
                 {
                     var permisoNuevo = permisoDTO.Adapt<Permiso>();

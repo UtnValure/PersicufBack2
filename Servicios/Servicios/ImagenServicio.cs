@@ -88,7 +88,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var imagenDB = await _context.Imagenes.FirstOrDefaultAsync(x => x.ImgPath == imagenDTO.Ruta);
+                var imagenDB = await _context.Imagenes.AsNoTracking().FirstOrDefaultAsync(x => x.ImgPath == imagenDTO.Ruta);
                 if (imagenDB == null)
                 {
                     var imagenNuevo = imagenDTO.Adapt<Imagen>();

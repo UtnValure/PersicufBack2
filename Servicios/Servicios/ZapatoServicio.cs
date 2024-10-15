@@ -96,7 +96,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var zapatoDB = await _context.Zapatos.FirstOrDefaultAsync(x => x.Prenda.Nombre == zapatoDTO.Nombre);
+                var zapatoDB = await _context.Zapatos.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == zapatoDTO.Nombre);
                 if (zapatoDB == null)
                 {
                     var zapatoNuevo = zapatoDTO.Adapt<Zapato>();

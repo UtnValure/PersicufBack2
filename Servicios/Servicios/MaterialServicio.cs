@@ -89,7 +89,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var materialDB = await _context.Materiales.FirstOrDefaultAsync(x => x.Descripcion == materialDTO.Descripcion);
+                var materialDB = await _context.Materiales.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == materialDTO.Descripcion);
                 if (materialDB == null)
                 {
                     var materialNuevo = materialDTO.Adapt<Material>();

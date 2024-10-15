@@ -94,7 +94,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var prendaDB = await _context.Prendas.FirstOrDefaultAsync(x => x.Nombre == prendaDTO.Nombre);
+                var prendaDB = await _context.Prendas.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == prendaDTO.Nombre);
                 if (prendaDB == null)
                 {
                     var prendaNuevo = prendaDTO.Adapt<Prenda>();

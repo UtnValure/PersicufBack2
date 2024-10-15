@@ -95,7 +95,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var pedidoDB = await _context.Pedidos.FirstOrDefaultAsync(x => x.DomicilioID == pedidoDTO.DomicilioID && x.UsuarioID == pedidoDTO.UsuarioID);
+                var pedidoDB = await _context.Pedidos.AsNoTracking().FirstOrDefaultAsync(x => x.DomicilioID == pedidoDTO.DomicilioID && x.UsuarioID == pedidoDTO.UsuarioID);
                 if (pedidoDB == null)
                 {
                     var pedidoNuevo = pedidoDTO.Adapt<Pedido>();

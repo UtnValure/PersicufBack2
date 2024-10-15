@@ -88,7 +88,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var mangaDB = await _context.Mangas.FirstOrDefaultAsync(x => x.Descripcion == mangaDTO.Descripcion);
+                var mangaDB = await _context.Mangas.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == mangaDTO.Descripcion);
                 if (mangaDB == null)
                 {
                     var mangaNuevo = mangaDTO.Adapt<Manga>();

@@ -124,10 +124,10 @@ namespace Servicios.Servicios
 
             try
             {
-                var usuarioDB = await _context.Usuarios.FirstOrDefaultAsync(x => x.NombreUsuario == usuarioDTO.NombreUsuario);
+                var usuarioDB = await _context.Usuarios.AsNoTracking().FirstOrDefaultAsync(x => x.NombreUsuario == usuarioDTO.NombreUsuario);
                 if (usuarioDB == null)
                 {
-                    var usuarioNuevo = usuarioDTO.Adapt<Usuario>();
+                    var usuarioNuevo = usuarioDTO.Adapt<Usuario>(); 
                     await _context.Usuarios.AddAsync(usuarioNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

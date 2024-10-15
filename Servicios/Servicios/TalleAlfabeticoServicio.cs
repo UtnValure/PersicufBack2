@@ -93,7 +93,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var talleAlfabeticoDB = await _context.TallesAlfabeticos.FirstOrDefaultAsync(x => x.Descripcion == talleAlfabeticoDTO.Descripcion);
+                var talleAlfabeticoDB = await _context.TallesAlfabeticos.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == talleAlfabeticoDTO.Descripcion);
                 if (talleAlfabeticoDB == null)
                 {
                     var talleAlfabeticoNuevo = talleAlfabeticoDTO.Adapt<TalleAlfabetico>();

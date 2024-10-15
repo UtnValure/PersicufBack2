@@ -95,7 +95,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var camperaDB = await _context.Camperas.FirstOrDefaultAsync(x => x.Prenda.Nombre == camperaDTO.Nombre);
+                var camperaDB = await _context.Camperas.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == camperaDTO.Nombre);
                 if (camperaDB == null)
                 {
                     var camperaNuevo = camperaDTO.Adapt<Campera>();

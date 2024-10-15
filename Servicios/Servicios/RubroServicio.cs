@@ -93,7 +93,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var rubroDB = await _context.Rubros.FirstOrDefaultAsync(x => x.Descripcion == rubroDTO.Descripcion);
+                var rubroDB = await _context.Rubros.AsNoTracking().FirstOrDefaultAsync(x => x.Descripcion == rubroDTO.Descripcion);
                 if (rubroDB == null)
                 {
                     var rubroNuevo = rubroDTO.Adapt<Rubro>();
