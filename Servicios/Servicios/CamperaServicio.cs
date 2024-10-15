@@ -71,6 +71,7 @@ namespace Servicios.Servicios
                             UsuarioID = Campera.Prenda.UsuarioID,
                             RubroID = Campera.Prenda.RubroID,
                             ImagenID = Campera.Prenda.ImagenID,
+                            Nombre = Campera.Prenda.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -94,7 +95,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var camperaDB = await _context.Camperas.FirstOrDefaultAsync(x => x.Nombre == camperaDTO.Nombre);
+                var camperaDB = await _context.Camperas.FirstOrDefaultAsync(x => x.Prenda.Nombre == camperaDTO.Nombre);
                 if (camperaDB == null)
                 {
                     var camperaNuevo = camperaDTO.Adapt<Campera>();
@@ -132,6 +133,7 @@ namespace Servicios.Servicios
                     camperaBD.Prenda.ImagenID = camperaDTO.ImagenID;
                     camperaBD.Prenda.RubroID = camperaDTO.RubroID;
                     camperaBD.Prenda.Precio = camperaDTO.Precio;
+                    camperaBD.Prenda.Nombre = camperaDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = camperaBD.Adapt<CamperaDTO>();

@@ -10,7 +10,7 @@ namespace CORE.DTOs
     public class PrendaEstampadoDTO
     {
         public int PrendaID { get; set; }
-        public int EstampadoID { get; set; }
+        public int ImagenID { get; set; }
         public int UbicacionID { get; set; }
     }
 

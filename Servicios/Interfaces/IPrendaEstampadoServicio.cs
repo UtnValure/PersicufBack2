@@ -11,7 +11,7 @@ namespace Servicios.Interfaces
     public interface IPrendaEstampadoServicio
     {
         Task<Confirmacion<ICollection<PrendaEstampadoDTOconID>>> GetPrendaEstampado();
-        Task<Confirmacion<PrendaEstampadoDTOconID>> PostPrendaEstampado(PrendaEstampadoDTO PrendaEstampadoDTO);
+        Task<Confirmacion<PrendaEstampadoDTO>> PostPrendaEstampado(PrendaEstampadoDTO PrendaEstampadoDTO);
         Task<Confirmacion<PrendaEstampado>> DeletePrendaEstampado(int ID);
         Task<Confirmacion<PrendaEstampadoDTO>> PutPrendaEstampado(int ID, PrendaEstampadoDTO PrendaEstampadoDTO);
     }

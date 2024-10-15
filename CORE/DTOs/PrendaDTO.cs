@@ -15,6 +15,8 @@ namespace CORE.DTOs
         public int ImagenID { get; set; }
         public int MaterialID { get; set; }
         public int UsuarioID { get; set; }
+        public string Nombre { get; set; }
+
     }
     public class PrendaDTOconID : PrendaDTO 
     { 

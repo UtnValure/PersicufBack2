@@ -16,6 +16,6 @@ namespace DB.Models
         public int TNID { get; set; }
 
         [Required]
-        public int Descripcion { get; set; }
+        public string Descripcion { get; set; }
     }
 }

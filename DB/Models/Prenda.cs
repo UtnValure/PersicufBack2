@@ -18,6 +18,9 @@ namespace DB.Models
         public float Precio { get; set; }
 
         [Required]
+        public string Nombre { get; set; }
+
+        [Required]
         public int ColorID { get; set; }
 
         [ForeignKey("ColorID")]

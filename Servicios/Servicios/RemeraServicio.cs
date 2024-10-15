@@ -73,6 +73,7 @@ namespace Servicios.Servicios
                             UsuarioID = Remera.Prenda.UsuarioID,
                             RubroID = Remera.Prenda.RubroID,
                             ImagenID = Remera.Prenda.ImagenID,
+                            Nombre = Remera.Prenda.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -96,7 +97,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var remeraDB = await _context.Remeras.FirstOrDefaultAsync(x => x.Nombre == remeraDTO.Nombre);
+                var remeraDB = await _context.Remeras.FirstOrDefaultAsync(x => x.Prenda.Nombre == remeraDTO.Nombre);
                 if (remeraDB == null)
                 {
                     var remeraNuevo = remeraDTO.Adapt<Remera>();
@@ -136,6 +137,7 @@ namespace Servicios.Servicios
                     remeraBD.Prenda.ImagenID = remeraDTO.ImagenID;
                     remeraBD.Prenda.RubroID = remeraDTO.RubroID;
                     remeraBD.Prenda.Precio = remeraDTO.Precio;
+                    remeraBD.Prenda.Nombre = remeraDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = remeraBD.Adapt<RemeraDTO>();

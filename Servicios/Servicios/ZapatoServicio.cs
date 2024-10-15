@@ -72,6 +72,7 @@ namespace Servicios.Servicios
                             UsuarioID = Zapato.Prenda.UsuarioID,
                             RubroID = Zapato.Prenda.RubroID,
                             ImagenID = Zapato.Prenda.ImagenID,
+                            Nombre = Zapato.Prenda.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -95,7 +96,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var zapatoDB = await _context.Zapatos.FirstOrDefaultAsync(x => x.Nombre == zapatoDTO.Nombre);
+                var zapatoDB = await _context.Zapatos.FirstOrDefaultAsync(x => x.Prenda.Nombre == zapatoDTO.Nombre);
                 if (zapatoDB == null)
                 {
                     var zapatoNuevo = zapatoDTO.Adapt<Zapato>();
@@ -134,6 +135,7 @@ namespace Servicios.Servicios
                     zapatoBD.Prenda.ImagenID = zapatoDTO.ImagenID;
                     zapatoBD.Prenda.RubroID = zapatoDTO.RubroID;
                     zapatoBD.Prenda.Precio = zapatoDTO.Precio;
+                    zapatoBD.Prenda.Nombre = zapatoDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = zapatoBD.Adapt<ZapatoDTO>();

@@ -72,6 +72,7 @@ namespace Servicios.Servicios
                             UsuarioID = Pantalon.Prenda.UsuarioID,
                             RubroID = Pantalon.Prenda.RubroID,
                             ImagenID = Pantalon.Prenda.ImagenID,
+                            Nombre = Pantalon.Prenda.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -95,7 +96,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var pantalonDB = await _context.Pantalones.FirstOrDefaultAsync(x => x.Nombre == pantalonDTO.Nombre);
+                var pantalonDB = await _context.Pantalones.FirstOrDefaultAsync(x => x.Prenda.Nombre == pantalonDTO.Nombre);
                 if (pantalonDB == null)
                 {
                     var pantalonNuevo = pantalonDTO.Adapt<Pantalon>();
@@ -134,6 +135,7 @@ namespace Servicios.Servicios
                     pantalonBD.Prenda.ImagenID = pantalonDTO.ImagenID;
                     pantalonBD.Prenda.RubroID = pantalonDTO.RubroID;
                     pantalonBD.Prenda.Precio = pantalonDTO.Precio;
+                    pantalonBD.Prenda.Nombre = pantalonDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = pantalonBD.Adapt<PantalonDTO>();

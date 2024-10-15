@@ -70,6 +70,7 @@ namespace Servicios.Servicios
                             UsuarioID = Prenda.UsuarioID,
                             RubroID = Prenda.RubroID,
                             ImagenID = Prenda.ImagenID,
+                            Nombre = Prenda.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -130,6 +131,7 @@ namespace Servicios.Servicios
                     prendaBD.ImagenID = prendaDTO.ImagenID;
                     prendaBD.RubroID = prendaDTO.RubroID;
                     prendaBD.Precio = prendaDTO.Precio;
+                    prendaBD.Nombre = prendaDTO.Nombre; 
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = prendaBD.Adapt<PrendaDTO>();
