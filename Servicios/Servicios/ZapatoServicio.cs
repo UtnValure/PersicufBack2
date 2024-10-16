@@ -113,6 +113,10 @@ namespace Servicios.Servicios
             catch (Exception ex)
             {
                 respuesta.Mensaje = "Error: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    respuesta.Mensaje += " Inner Exception: " + ex.InnerException.Message;
+                }
                 return (respuesta);
             }
         }

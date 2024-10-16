@@ -112,10 +112,13 @@ namespace Servicios.Servicios
             catch (Exception ex)
             {
                 respuesta.Mensaje = "Error: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    respuesta.Mensaje += " Inner Exception: " + ex.InnerException.Message;
+                }
                 return (respuesta);
             }
         }
-
         public async Task<Confirmacion<CamperaDTO>> PutCampera(int ID, CamperaDTO camperaDTO)
         {
             var respuesta = new Confirmacion<CamperaDTO>();
