@@ -92,6 +92,7 @@ namespace Servicios.Servicios
                 if (imagenDB == null)
                 {
                     var imagenNuevo = imagenDTO.Adapt<Imagen>();
+                    imagenNuevo.ImgPath = imagenDTO.Ruta;
                     await _context.Imagenes.AddAsync(imagenNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

@@ -98,6 +98,7 @@ namespace Servicios.Servicios
                 if (colorDB == null)
                 {
                     var colorNuevo = colorDTO.Adapt<Color>();
+                    colorNuevo.ColorNombre = colorDTO.Nombre;
                     await _context.Colores.AddAsync(colorNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

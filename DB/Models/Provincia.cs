@@ -15,6 +15,6 @@ namespace DB.Models
         public int ProvinciaID { get; set; }
 
         [Required]
-        public string ProvinciaNombre { get; set; }
+        public string ProvinciaNombre { get; set; } = string.Empty;
     }
 }

@@ -72,6 +72,7 @@ namespace Servicios.Servicios
                             RubroID = Campera.Prenda.RubroID,
                             ImagenID = Campera.Prenda.ImagenID,
                             Nombre = Campera.Prenda.Nombre,
+                            PrendaID = Campera.PrendaID,
                         });
                     }
                     respuesta.Exito = true;
@@ -114,7 +115,7 @@ namespace Servicios.Servicios
                 respuesta.Mensaje = "Error: " + ex.Message;
                 if (ex.InnerException != null)
                 {
-                    respuesta.Mensaje += " Inner Exception: " + ex.InnerException.Message;
+                    respuesta.Mensaje += "/n Inner Exception: " + ex.InnerException.Message;
                 }
                 return (respuesta);
             }
@@ -137,6 +138,7 @@ namespace Servicios.Servicios
                     camperaBD.Prenda.RubroID = camperaDTO.RubroID;
                     camperaBD.Prenda.Precio = camperaDTO.Precio;
                     camperaBD.Prenda.Nombre = camperaDTO.Nombre;
+                    camperaBD.PrendaID = camperaDTO.PrendaID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = camperaBD.Adapt<CamperaDTO>();

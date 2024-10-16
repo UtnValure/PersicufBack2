@@ -98,6 +98,7 @@ namespace Servicios.Servicios
                 if (provinciaBD == null)
                 {
                     var ProvinciaNueva = provinciaDTO.Adapt<Provincia>();
+                    ProvinciaNueva.ProvinciaNombre = provinciaDTO.Nombre;
                     await _context.Provincias.AddAsync(ProvinciaNueva);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

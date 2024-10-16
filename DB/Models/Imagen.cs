@@ -16,6 +16,6 @@ namespace DB.Models
         public int ImagenID { get; set; }
 
         [Required]
-        public string ImgPath { get; set; } //preguntar profe imagen
+        public string ImgPath { get; set; } = string.Empty;
     }
 }

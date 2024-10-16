@@ -15,9 +15,9 @@ namespace DB.Models
         public int ColorID { get; set; }
 
         [Required]
-        public string ColorNombre { get; set; }
+        public string ColorNombre { get; set; } = string.Empty;
 
         [Required]
-        public string CodigoHexa { get; set; }
+        public string CodigoHexa { get; set; } = string.Empty;
     }
 }
