@@ -100,6 +100,8 @@ namespace Servicios.Servicios
                 if (camperaDB == null)
                 {
                     var camperaNuevo = camperaDTO.Adapt<Campera>();
+                    camperaNuevo.PrendaID = camperaDTO.PrendaID;
+                    camperaNuevo.TAID = camperaDTO.TalleAlfabeticoID;
                     await _context.Camperas.AddAsync(camperaNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

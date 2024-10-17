@@ -73,6 +73,7 @@ namespace Servicios.Servicios
                             RubroID = Pantalon.Prenda.RubroID,
                             ImagenID = Pantalon.Prenda.ImagenID,
                             Nombre = Pantalon.Prenda.Nombre,
+                            PrendaID = Pantalon.PrendaID,
                         });
                     }
                     respuesta.Exito = true;
@@ -100,6 +101,8 @@ namespace Servicios.Servicios
                 if (pantalonDB == null)
                 {
                     var pantalonNuevo = pantalonDTO.Adapt<Pantalon>();
+                    pantalonNuevo.PrendaID = pantalonDTO.PrendaID;
+                    pantalonNuevo.TAID = pantalonDTO.TalleAlfabeticoID;
                     await _context.Pantalones.AddAsync(pantalonNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;
@@ -140,6 +143,7 @@ namespace Servicios.Servicios
                     pantalonBD.Prenda.RubroID = pantalonDTO.RubroID;
                     pantalonBD.Prenda.Precio = pantalonDTO.Precio;
                     pantalonBD.Prenda.Nombre = pantalonDTO.Nombre;
+                    pantalonBD.PrendaID = pantalonDTO.PrendaID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = pantalonBD.Adapt<PantalonDTO>();
