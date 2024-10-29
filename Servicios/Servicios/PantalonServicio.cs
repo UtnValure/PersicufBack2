@@ -63,17 +63,16 @@ namespace Servicios.Servicios
                     {
                         respuesta.Datos.Add(new PantalonDTOconID()
                         {
-                            ID = Pantalon.PantalonID,
+                            ID = Pantalon.PrendaID,
                             LargoID = Pantalon.LargoID,
                             TalleAlfabeticoID = Pantalon.TAID,
-                            Precio = Pantalon.Prenda.Precio,
-                            ColorID = Pantalon.Prenda.ColorID,
-                            MaterialID = Pantalon.Prenda.MaterialID,
-                            UsuarioID = Pantalon.Prenda.UsuarioID,
-                            RubroID = Pantalon.Prenda.RubroID,
-                            ImagenID = Pantalon.Prenda.ImagenID,
-                            Nombre = Pantalon.Prenda.Nombre,
-                            PrendaID = Pantalon.PrendaID,
+                            Precio = Pantalon.Precio,
+                            ColorID = Pantalon.ColorID,
+                            MaterialID = Pantalon.MaterialID,
+                            UsuarioID = Pantalon.UsuarioID,
+                            RubroID = Pantalon.RubroID,
+                            ImagenID = Pantalon.ImagenID,
+                            Nombre = Pantalon.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -97,11 +96,10 @@ namespace Servicios.Servicios
 
             try
             {
-                var pantalonDB = await _context.Pantalones.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == pantalonDTO.Nombre);
+                var pantalonDB = await _context.Pantalones.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == pantalonDTO.Nombre);
                 if (pantalonDB == null)
                 {
                     var pantalonNuevo = pantalonDTO.Adapt<Pantalon>();
-                    pantalonNuevo.PrendaID = pantalonDTO.PrendaID;
                     pantalonNuevo.TAID = pantalonDTO.TalleAlfabeticoID;
                     await _context.Pantalones.AddAsync(pantalonNuevo);
                     await _context.SaveChangesAsync();
@@ -136,14 +134,13 @@ namespace Servicios.Servicios
                 {
                     pantalonBD.TAID = pantalonDTO.TalleAlfabeticoID;
                     pantalonBD.Largo.LargoID = pantalonDTO.LargoID;
-                    pantalonBD.Prenda.ColorID = pantalonDTO.ColorID;
-                    pantalonBD.Prenda.MaterialID = pantalonDTO.MaterialID;
-                    pantalonBD.Prenda.UsuarioID = pantalonDTO.UsuarioID;
-                    pantalonBD.Prenda.ImagenID = pantalonDTO.ImagenID;
-                    pantalonBD.Prenda.RubroID = pantalonDTO.RubroID;
-                    pantalonBD.Prenda.Precio = pantalonDTO.Precio;
-                    pantalonBD.Prenda.Nombre = pantalonDTO.Nombre;
-                    pantalonBD.PrendaID = pantalonDTO.PrendaID;
+                    pantalonBD.ColorID = pantalonDTO.ColorID;
+                    pantalonBD.MaterialID = pantalonDTO.MaterialID;
+                    pantalonBD.UsuarioID = pantalonDTO.UsuarioID;
+                    pantalonBD.ImagenID = pantalonDTO.ImagenID;
+                    pantalonBD.RubroID = pantalonDTO.RubroID;
+                    pantalonBD.Precio = pantalonDTO.Precio;
+                    pantalonBD.Nombre = pantalonDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = pantalonBD.Adapt<PantalonDTO>();

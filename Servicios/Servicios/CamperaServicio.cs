@@ -63,16 +63,16 @@ namespace Servicios.Servicios
                     {
                         respuesta.Datos.Add(new CamperaDTOconID()
                         {
-                            ID = Campera.CamperaID,
+                            ID = Campera.PrendaID,
                             TalleAlfabeticoID = Campera.TAID,
-                            Precio = Campera.Prenda.Precio,
-                            ColorID = Campera.Prenda.ColorID,
-                            MaterialID = Campera.Prenda.MaterialID,
-                            UsuarioID = Campera.Prenda.UsuarioID,
-                            RubroID = Campera.Prenda.RubroID,
-                            ImagenID = Campera.Prenda.ImagenID,
-                            Nombre = Campera.Prenda.Nombre,
-                            PrendaID = Campera.PrendaID,
+                            Precio = Campera.Precio,
+                            ColorID = Campera.ColorID,
+                            MaterialID = Campera.MaterialID,
+                            UsuarioID = Campera.UsuarioID,
+                            RubroID = Campera.RubroID,
+                            ImagenID = Campera.ImagenID,
+                            Nombre = Campera.Nombre,
+
                         });
                     }
                     respuesta.Exito = true;
@@ -96,11 +96,10 @@ namespace Servicios.Servicios
 
             try
             {
-                var camperaDB = await _context.Camperas.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == camperaDTO.Nombre);
+                var camperaDB = await _context.Camperas.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == camperaDTO.Nombre);
                 if (camperaDB == null)
                 {
                     var camperaNuevo = camperaDTO.Adapt<Campera>();
-                    camperaNuevo.PrendaID = camperaDTO.PrendaID;
                     camperaNuevo.TAID = camperaDTO.TalleAlfabeticoID;
                     await _context.Camperas.AddAsync(camperaNuevo);
                     await _context.SaveChangesAsync();
@@ -133,14 +132,13 @@ namespace Servicios.Servicios
                 if (camperaBD != null)
                 {
                     camperaBD.TAID = camperaDTO.TalleAlfabeticoID;
-                    camperaBD.Prenda.ColorID = camperaDTO.ColorID;
-                    camperaBD.Prenda.MaterialID = camperaDTO.MaterialID;
-                    camperaBD.Prenda.UsuarioID = camperaDTO.UsuarioID;
-                    camperaBD.Prenda.ImagenID = camperaDTO.ImagenID;
-                    camperaBD.Prenda.RubroID = camperaDTO.RubroID;
-                    camperaBD.Prenda.Precio = camperaDTO.Precio;
-                    camperaBD.Prenda.Nombre = camperaDTO.Nombre;
-                    camperaBD.PrendaID = camperaDTO.PrendaID;
+                    camperaBD.ColorID = camperaDTO.ColorID;
+                    camperaBD.MaterialID = camperaDTO.MaterialID;
+                    camperaBD.UsuarioID = camperaDTO.UsuarioID;
+                    camperaBD.ImagenID = camperaDTO.ImagenID;
+                    camperaBD.RubroID = camperaDTO.RubroID;
+                    camperaBD.Precio = camperaDTO.Precio;
+                    camperaBD.Nombre = camperaDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = camperaBD.Adapt<CamperaDTO>();

@@ -41,11 +41,11 @@ builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 builder.Services.AddScoped<IZapatoServicio, ZapatoServicio>();
 var app = builder.Build();
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<PersicufContext>();
     context.Database.Migrate();
-}*/
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

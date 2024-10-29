@@ -10,7 +10,6 @@ namespace CORE.DTOs
     public class CamperaDTO : PrendaDTO
     {
         public int TalleAlfabeticoID { get; set; }
-        public int PrendaID { get; set; }
     }
     public class CamperaDTOconID : CamperaDTO
     {

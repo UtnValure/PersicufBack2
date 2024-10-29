@@ -63,16 +63,16 @@ namespace Servicios.Servicios
                     {
                         respuesta.Datos.Add(new ZapatoDTOconID()
                         {
-                            ID = Zapato.ZapatoID,
+                            ID = Zapato.PrendaID,
                             PuntaMetal = Zapato.PuntaMetalica,
                             TalleNumericoID = Zapato.TNID,
-                            Precio = Zapato.Prenda.Precio,
-                            ColorID = Zapato.Prenda.ColorID,
-                            MaterialID = Zapato.Prenda.MaterialID,
-                            UsuarioID = Zapato.Prenda.UsuarioID,
-                            RubroID = Zapato.Prenda.RubroID,
-                            ImagenID = Zapato.Prenda.ImagenID,
-                            Nombre = Zapato.Prenda.Nombre,
+                            Precio = Zapato.Precio,
+                            ColorID = Zapato.ColorID,
+                            MaterialID = Zapato.MaterialID,
+                            UsuarioID = Zapato.UsuarioID,
+                            RubroID = Zapato.RubroID,
+                            ImagenID = Zapato.ImagenID,
+                            Nombre = Zapato.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -96,7 +96,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var zapatoDB = await _context.Zapatos.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == zapatoDTO.Nombre);
+                var zapatoDB = await _context.Zapatos.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == zapatoDTO.Nombre);
                 if (zapatoDB == null)
                 {
                     var zapatoNuevo = zapatoDTO.Adapt<Zapato>();
@@ -133,13 +133,13 @@ namespace Servicios.Servicios
                 {
                     zapatoBD.PuntaMetalica = zapatoDTO.PuntaMetal;
                     zapatoBD.TNID = zapatoDTO.TalleNumericoID;
-                    zapatoBD.Prenda.ColorID = zapatoDTO.ColorID;
-                    zapatoBD.Prenda.MaterialID = zapatoDTO.MaterialID;
-                    zapatoBD.Prenda.UsuarioID = zapatoDTO.UsuarioID;
-                    zapatoBD.Prenda.ImagenID = zapatoDTO.ImagenID;
-                    zapatoBD.Prenda.RubroID = zapatoDTO.RubroID;
-                    zapatoBD.Prenda.Precio = zapatoDTO.Precio;
-                    zapatoBD.Prenda.Nombre = zapatoDTO.Nombre;
+                    zapatoBD.ColorID = zapatoDTO.ColorID;
+                    zapatoBD.MaterialID = zapatoDTO.MaterialID;
+                    zapatoBD.UsuarioID = zapatoDTO.UsuarioID;
+                    zapatoBD.ImagenID = zapatoDTO.ImagenID;
+                    zapatoBD.RubroID = zapatoDTO.RubroID;
+                    zapatoBD.Precio = zapatoDTO.Precio;
+                    zapatoBD.Nombre = zapatoDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = zapatoBD.Adapt<ZapatoDTO>();

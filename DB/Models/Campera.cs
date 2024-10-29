@@ -8,17 +8,8 @@ using System.Threading.Tasks;
 
 namespace DB.Models
 {
-    public class Campera
+    public class Campera : Prenda
     {
-        [Key, Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CamperaID { get; set; }
-
-        [Required]
-        public int PrendaID { get; set; }
-
-        [ForeignKey("PrendaID")]
-        public virtual Prenda Prenda { get; set; }
 
         [Required]
         public int TAID { get; set; }

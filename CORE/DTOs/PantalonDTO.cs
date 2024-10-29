@@ -11,7 +11,6 @@ namespace CORE.DTOs
     {
         public int TalleAlfabeticoID { get; set; }
         public int LargoID { get; set; }
-        public int PrendaID { get; set; }
 
     }
     public class PantalonDTOconID : PantalonDTO

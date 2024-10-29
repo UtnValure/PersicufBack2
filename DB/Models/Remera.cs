@@ -8,17 +8,8 @@ using System.Threading.Tasks;
 
 namespace DB.Models
 {
-    public class Remera
+    public class Remera : Prenda
     {
-        [Key, Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RemeraID { get; set; }
-
-        [Required]
-        public int PrendaID { get; set; }
-
-        [ForeignKey("PrendaID")]
-        public virtual Prenda Prenda { get; set; }
 
         [Required]
         public int MangaID { get; set; }

@@ -63,17 +63,17 @@ namespace Servicios.Servicios
                     {
                         respuesta.Datos.Add(new RemeraDTOconID()
                         {
-                            ID = Remera.RemeraID,
+                            ID = Remera.PrendaID,
                             CorteCuelloID = Remera.CorteCuello.CCID,
                             TalleAlfabeticoID = Remera.TAID,
                             MangaID = Remera.MangaID,
-                            Precio = Remera.Prenda.Precio,
-                            ColorID = Remera.Prenda.ColorID,
-                            MaterialID = Remera.Prenda.MaterialID,
-                            UsuarioID = Remera.Prenda.UsuarioID,
-                            RubroID = Remera.Prenda.RubroID,
-                            ImagenID = Remera.Prenda.ImagenID,
-                            Nombre = Remera.Prenda.Nombre,
+                            Precio = Remera.Precio,
+                            ColorID = Remera.ColorID,
+                            MaterialID = Remera.MaterialID,
+                            UsuarioID = Remera.UsuarioID,
+                            RubroID = Remera.RubroID,
+                            ImagenID = Remera.ImagenID,
+                            Nombre = Remera.Nombre,
                         });
                     }
                     respuesta.Exito = true;
@@ -97,7 +97,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var remeraDB = await _context.Remeras.AsNoTracking().FirstOrDefaultAsync(x => x.Prenda.Nombre == remeraDTO.Nombre);
+                var remeraDB = await _context.Remeras.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == remeraDTO.Nombre);
                 if (remeraDB == null)
                 {
                     var remeraNuevo = remeraDTO.Adapt<Remera>();
@@ -135,13 +135,13 @@ namespace Servicios.Servicios
                     remeraBD.CorteCuello.CCID = remeraDTO.CorteCuelloID;
                     remeraBD.TAID = remeraDTO.TalleAlfabeticoID;
                     remeraBD.Manga.MangaID = remeraDTO.MangaID;
-                    remeraBD.Prenda.ColorID = remeraDTO.ColorID;
-                    remeraBD.Prenda.MaterialID = remeraDTO.MaterialID;
-                    remeraBD.Prenda.UsuarioID = remeraDTO.UsuarioID;
-                    remeraBD.Prenda.ImagenID = remeraDTO.ImagenID;
-                    remeraBD.Prenda.RubroID = remeraDTO.RubroID;
-                    remeraBD.Prenda.Precio = remeraDTO.Precio;
-                    remeraBD.Prenda.Nombre = remeraDTO.Nombre;
+                    remeraBD.ColorID = remeraDTO.ColorID;
+                    remeraBD.MaterialID = remeraDTO.MaterialID;
+                    remeraBD.UsuarioID = remeraDTO.UsuarioID;
+                    remeraBD.ImagenID = remeraDTO.ImagenID;
+                    remeraBD.RubroID = remeraDTO.RubroID;
+                    remeraBD.Precio = remeraDTO.Precio;
+                    remeraBD.Nombre = remeraDTO.Nombre;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = remeraBD.Adapt<RemeraDTO>();
