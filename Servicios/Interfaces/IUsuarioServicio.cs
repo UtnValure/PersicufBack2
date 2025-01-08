@@ -15,5 +15,7 @@ namespace Servicios.Interfaces
         Task<Confirmacion<Usuario>> DeleteUsuario(int ID);
         Task<Confirmacion<UsuarioDTO>> PutUsuario(int ID, UsuarioDTO UsuarioDTO);
         Task<Confirmacion<UsuarioDTOconID>> PatchUsuarioPermiso(int ID, int PermisoID );
+        Task<RespuestaPrivada<LoginUsuarioConRolDTO>> AutenticarUsuario(LoginUsuarioDTO loginUsuario);
+        Task<RespuestaPrivada<RegisterUsuarioDTO>> RegistrarUsuario(RegisterUsuarioDTO registerUsuario);
     }
 }

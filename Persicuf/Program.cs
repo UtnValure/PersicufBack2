@@ -6,6 +6,16 @@ using Servicios.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // Dirección de tu frontend (ajusta según corresponda)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // Si necesitas enviar cookies
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -39,13 +49,14 @@ builder.Services.AddScoped<ITalleNumericoServicio, TalleNumericoServicio>();
 builder.Services.AddScoped<IUbicacionServicio, UbicacionServicio>();
 builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 builder.Services.AddScoped<IZapatoServicio, ZapatoServicio>();
+builder.Services.AddScoped<IJWT, JWT>();
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<PersicufContext>();
     context.Database.Migrate();
-}
+}*/
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -57,6 +68,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("AllowFrontend");
 
 app.MapControllers();
 

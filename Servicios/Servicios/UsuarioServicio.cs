@@ -15,9 +15,12 @@ namespace Servicios.Servicios
     public class UsuarioServicio : IUsuarioServicio
     {
         private readonly PersicufContext _context;
-        public UsuarioServicio(PersicufContext context)
+
+        private readonly IJWT _jwt;
+        public UsuarioServicio(PersicufContext context, IJWT jwt)
         {
             _context = context;
+            _jwt = jwt;
         }
         public async Task<Confirmacion<Usuario>> DeleteUsuario(int ID)
         {
@@ -176,6 +179,83 @@ namespace Servicios.Servicios
             catch (Exception ex)
             {
                 respuesta.Mensaje = "Error: " + ex.Message;
+                return respuesta;
+            }
+        }
+
+        public async Task<RespuestaPrivada<LoginUsuarioConRolDTO>> AutenticarUsuario(LoginUsuarioDTO loginUsuario)
+        {
+            var respuesta = new RespuestaPrivada<LoginUsuarioConRolDTO>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var usuarioBD = await _context.Usuarios.FirstOrDefaultAsync(u => u.NombreUsuario == loginUsuario.NombreUsuario);
+
+                if (usuarioBD == null)
+                {
+                    respuesta.Mensaje = "Usuario no encontrado";
+                    return respuesta;
+                }
+
+                bool isPasswordValid = BCrypt.Net.BCrypt.Verify(loginUsuario.Clave, usuarioBD.Contrasenia);
+
+                if (!isPasswordValid)
+                {
+                    respuesta.Mensaje = "Contraseña incorrecta";
+                    return respuesta;
+                }
+
+                var data = new LoginUsuarioConRolDTO
+                {
+                    Token = _jwt.GenerarToken(usuarioBD),
+                    Rol = usuarioBD.Permiso.Descripcion,
+                    Id = usuarioBD.UsuarioID,
+                    LoginUsuario = loginUsuario
+
+                };
+
+                respuesta.Datos = data;
+                respuesta.Exito = true;
+                respuesta.Mensaje = "Autenticación exitosa";
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error interno: " + ex.Message;
+                return respuesta;
+            }
+        }
+
+        public async Task<RespuestaPrivada<RegisterUsuarioDTO>> RegistrarUsuario(RegisterUsuarioDTO registerUsuario)
+        {
+            var respuesta = new RespuestaPrivada<RegisterUsuarioDTO>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var usuarioExistente = await _context.Usuarios.FirstOrDefaultAsync(u => u.NombreUsuario.ToLower() == registerUsuario.NombreUsuario.ToLower());
+                if (usuarioExistente != null)
+                {
+                    respuesta.Mensaje = "El nombre de usuario ya está en uso.";
+                    return respuesta;
+                }
+
+                var usuarioNuevo = registerUsuario.Adapt<Usuario>();
+                usuarioNuevo.PermisoID = 2;
+                usuarioNuevo.Contrasenia = BCrypt.Net.BCrypt.HashPassword(registerUsuario.Clave);
+
+                await _context.Usuarios.AddAsync(usuarioNuevo);
+                await _context.SaveChangesAsync();
+
+                respuesta.Exito = true;
+                respuesta.Mensaje = "El usuario se ha registrado correctamente";
+                respuesta.Datos = usuarioNuevo.Adapt<RegisterUsuarioDTO>();
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error interno: " + ex.Message;
                 return respuesta;
             }
         }

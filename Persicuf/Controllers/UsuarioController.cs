@@ -93,6 +93,67 @@ namespace Persicuf.Controllers
             }
             return Ok(respuesta);
         }
+
+        //POST: UsuarioController/login
+        [HttpPost("login")]
+        public async Task<ActionResult<RespuestaPrivada<LoginUsuarioConRolDTO>>> Login(LoginUsuarioDTO loginUsuario)
+        {
+            var respuesta = await _servicio.AutenticarUsuario(loginUsuario);
+
+            if (respuesta.Datos == null)
+                if (respuesta.Mensaje.StartsWith("Error interno"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                else if (respuesta.Mensaje.StartsWith("Usuario no encontrado"))
+                {
+                    return Unauthorized(new { message = "Usuario incorrecto" });
+
+                }
+                else
+                {
+                    return Unauthorized(new { message = "Contraseña Incorrecta" });
+                }
+
+            return Ok(new
+            {
+                message = "Login exitoso",
+                userData = new
+                {
+                    nombreUsuario = respuesta.Datos.LoginUsuario.NombreUsuario,
+                    id = respuesta.Datos.Id,
+                    rol = respuesta.Datos.Rol,
+                    token = respuesta.Datos.Token
+                }
+            });
+        }
+
+        //POST: UsuarioController/register
+        [HttpPost("register")]
+        public async Task<ActionResult<RespuestaPrivada<RegisterUsuarioDTO>>> Register(RegisterUsuarioDTO registerUsuario)
+        {
+            var respuesta = await _servicio.RegistrarUsuario(registerUsuario);
+
+            if (respuesta.Datos == null)
+                if (respuesta.Mensaje.StartsWith("Error interno"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                else
+                {
+                    return Unauthorized(new { message = respuesta.Mensaje });
+
+                }
+            return Ok(new { message = respuesta.Mensaje, data = respuesta.Datos });
+        }
+
+        //POST: UsuarioController/logout
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+
+            return Ok(new { message = "Logout exitoso" });
+        }
     }
 
 }
