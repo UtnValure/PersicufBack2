@@ -190,7 +190,9 @@ namespace Servicios.Servicios
 
             try
             {
-                var usuarioBD = await _context.Usuarios.FirstOrDefaultAsync(u => u.NombreUsuario == loginUsuario.NombreUsuario);
+                var usuarioBD = await _context.Usuarios
+                    .Include(u => u.Permiso) // Asegura que se cargue Permiso
+                    .FirstOrDefaultAsync(u => u.NombreUsuario == loginUsuario.NombreUsuario);
 
                 if (usuarioBD == null)
                 {
@@ -206,13 +208,18 @@ namespace Servicios.Servicios
                     return respuesta;
                 }
 
+                if (usuarioBD.Permiso == null)
+                {
+                    respuesta.Mensaje = "Permiso no asignado al usuario";
+                    return respuesta;
+                }
+
                 var data = new LoginUsuarioConRolDTO
                 {
                     Token = _jwt.GenerarToken(usuarioBD),
                     Rol = usuarioBD.Permiso.Descripcion,
                     Id = usuarioBD.UsuarioID,
                     LoginUsuario = loginUsuario
-
                 };
 
                 respuesta.Datos = data;
