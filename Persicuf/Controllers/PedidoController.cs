@@ -66,6 +66,21 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("obtenerPedidosUsuario")]
+        public async Task<ActionResult<Confirmacion<ICollection<PedidoDTOconID>>>> obtenerPedidosUsuario([FromQuery] int ID)
+        {
+            var respuesta = await _servicio.GetPedidoUsuario(ID);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
         [HttpDelete("eliminarPedido")]
         public async Task<ActionResult<Confirmacion<Pedido>>> eliminarPedido(int ID)
         {

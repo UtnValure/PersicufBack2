@@ -47,9 +47,6 @@ namespace Servicios.Servicios
             }
         }
 
-
-
-
         public async Task<Confirmacion<ICollection<PedidoDTOconID>>> GetPedido()
         {
             var respuesta = new Confirmacion<ICollection<PedidoDTOconID>>();
@@ -58,6 +55,45 @@ namespace Servicios.Servicios
             try
             {
                 var pedidosDB = await _context.Pedidos.ToListAsync();
+                if (pedidosDB.Count() != 0)
+                {
+                    respuesta.Datos = new List<PedidoDTOconID>();
+                    foreach (var pedido in pedidosDB)
+                    {
+                        respuesta.Datos.Add(new PedidoDTOconID()
+                        {
+                            ID = pedido.PedidoID,
+                            PrecioTotal = pedido.PrecioTotal,
+                            DomicilioID = pedido.DomicilioID,
+                            UsuarioID = pedido.UsuarioID,
+                        });
+                    }
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Se recuperaron todos los pedidos";
+                    return respuesta;
+                }
+
+                respuesta.Mensaje = "No existen pedidos";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                return (respuesta);
+            }
+        }
+
+
+        public async Task<Confirmacion<ICollection<PedidoDTOconID>>> GetPedidoUsuario(int ID)
+        {
+            var respuesta = new Confirmacion<ICollection<PedidoDTOconID>>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var pedidosDB = await _context.Pedidos
+                .Where(p => p.UsuarioID == ID).OrderBy(p => p.PedidoID).ToListAsync();
+
                 if (pedidosDB.Count() != 0)
                 {
                     respuesta.Datos = new List<PedidoDTOconID>();

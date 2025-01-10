@@ -87,6 +87,99 @@ namespace Servicios.Servicios
                 return (respuesta);
             }
         }
+
+        public async Task<Confirmacion<ICollection<PrendaDTOconID>>> BuscarPrenda(string busqueda)
+        {
+            var respuesta = new Confirmacion<ICollection<PrendaDTOconID>>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var prendaDB = await _context.Prendas
+                .Where(p => p.Nombre.ToLower().Contains(busqueda.ToLower()))
+                .OrderByDescending(p => p.Nombre.ToLower().StartsWith(busqueda.ToLower()))
+                .ThenBy(p => p.Nombre)
+                .ToListAsync();
+
+
+
+                if (prendaDB.Count() != 0)
+                {
+                    respuesta.Datos = new List<PrendaDTOconID>();
+                    foreach (var Prenda in prendaDB)
+                    {
+                        respuesta.Datos.Add(new PrendaDTOconID()
+                        {
+                            ID = Prenda.PrendaID,
+                            Precio = Prenda.Precio,
+                            ColorID = Prenda.ColorID,
+                            MaterialID = Prenda.MaterialID,
+                            UsuarioID = Prenda.UsuarioID,
+                            RubroID = Prenda.RubroID,
+                            ImagenID = Prenda.ImagenID,
+                            Nombre = Prenda.Nombre,
+                        });
+                    }
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Se recuperaron todas las Prendas que coiciden con la busqueda";
+                    return respuesta;
+                }
+
+                respuesta.Mensaje = "No se encontraron prendas con ese nombre";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                return (respuesta);
+            }
+        }
+
+        public async Task<Confirmacion<ICollection<PrendaDTOconID>>> GetPrendaUsuario(int ID)
+        {
+            var respuesta = new Confirmacion<ICollection<PrendaDTOconID>>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var prendaDB = await _context.Prendas
+                .Where(p => p.UsuarioID == ID).OrderBy(p => p.PrendaID).ToListAsync();
+
+
+
+                if (prendaDB.Count() != 0)
+                {
+                    respuesta.Datos = new List<PrendaDTOconID>();
+                    foreach (var Prenda in prendaDB)
+                    {
+                        respuesta.Datos.Add(new PrendaDTOconID()
+                        {
+                            ID = Prenda.PrendaID,
+                            Precio = Prenda.Precio,
+                            ColorID = Prenda.ColorID,
+                            MaterialID = Prenda.MaterialID,
+                            UsuarioID = Prenda.UsuarioID,
+                            RubroID = Prenda.RubroID,
+                            ImagenID = Prenda.ImagenID,
+                            Nombre = Prenda.Nombre,
+                        });
+                    }
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Se recuperaron todas las Prendas";
+                    return respuesta;
+                }
+
+                respuesta.Mensaje = "No se encontraron prendas";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                return (respuesta);
+            }
+        }
+
+
         public async Task<Confirmacion<PrendaDTO>> PostPrenda(PrendaDTO prendaDTO)
         {
             var respuesta = new Confirmacion<PrendaDTO>();

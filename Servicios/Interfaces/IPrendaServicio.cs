@@ -14,5 +14,7 @@ namespace Servicios.Interfaces
         Task<Confirmacion<PrendaDTO>> PostPrenda(PrendaDTO prendaDTO);
         Task<Confirmacion<Prenda>> DeletePrenda(int ID);
         Task<Confirmacion<PrendaDTO>> PutPrenda(int ID, PrendaDTO prendaDTO);
+        Task<Confirmacion<ICollection<PrendaDTOconID>>> BuscarPrenda(string busqueda);
+        Task<Confirmacion<ICollection<PrendaDTOconID>>> GetPrendaUsuario(int ID);
     }
 }

@@ -98,7 +98,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var usuarioDB = await _context.Usuarios.FirstOrDefaultAsync(x => x.PermisoID == ID);
+                var usuarioDB = await _context.Usuarios.FirstOrDefaultAsync(x => x.UsuarioID == ID);
                 if (usuarioDB != null)
                 {
                     usuarioDB.PermisoID = PermID;
@@ -117,6 +117,8 @@ namespace Servicios.Servicios
                 return (respuesta);
             }
         }
+
+
 
 
 

@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         Task<Confirmacion<PedidoDTO>> PostPedido(PedidoDTO PedidoDTO);
         Task<Confirmacion<Pedido>> DeletePedido(int ID);
         Task<Confirmacion<PedidoDTO>> PutPedido(int ID, PedidoDTO PedidoDTO);
+        Task<Confirmacion<ICollection<PedidoDTOconID>>> GetPedidoUsuario(int ID);
     }
 }
