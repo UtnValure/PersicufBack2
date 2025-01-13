@@ -16,6 +16,7 @@ namespace DB.Models
         public int ImagenID { get; set; }
 
         [Required]
-        public string ImgPath { get; set; } = string.Empty;
+        public byte[] ImagenData { get; set; }
     }
 }
+

@@ -47,7 +47,7 @@ namespace DB.Models
         public virtual Usuario Usuario { get; set; }
 
         [Required]
-        public int ImagenID { get; set; }
+        public int? ImagenID { get; set; }
 
         [ForeignKey("ImagenID")]
         public virtual Imagen Imagen { get; set; }

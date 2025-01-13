@@ -7,12 +7,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CORE.DTOs
 {
-   public class ImagenDTO
+    public class ImagenDTO
     {
-        public string Ruta {  get; set; }
+        public byte[] Imagen { get; set; }
     }
 
-    public class ImagenDTOconID : ImagenDTO { 
+    public class ImagenDTOconID : ImagenDTO
+    {
         public int ID { get; set; }
     }
 }
+

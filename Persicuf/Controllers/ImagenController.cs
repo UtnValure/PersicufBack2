@@ -36,8 +36,13 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearImagen")]
-        public async Task<ActionResult<Confirmacion<ImagenDTO>>> crearImagen(ImagenDTO imagenDTO)
+        public async Task<ActionResult<Confirmacion<ImagenDTO>>> crearImagen([FromBody] ImagenDTO imagenDTO)
         {
+            if (imagenDTO?.Imagen == null || imagenDTO.Imagen.Length == 0)
+            {
+                return BadRequest("No image data provided.");
+            }
+
             var respuesta = await _servicio.PostImagen(imagenDTO);
             if (respuesta.Datos == null)
             {
@@ -47,6 +52,7 @@ namespace Persicuf.Controllers
                 }
                 return BadRequest(respuesta);
             }
+
             return StatusCode(StatusCodes.Status201Created, respuesta);
         }
 

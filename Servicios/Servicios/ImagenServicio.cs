@@ -59,12 +59,12 @@ namespace Servicios.Servicios
                 if (imagenDB.Count() != 0)
                 {
                     respuesta.Datos = new List<ImagenDTOconID>();
-                    foreach (var Imagen in imagenDB)
+                    foreach (var Img in imagenDB)
                     {
                         respuesta.Datos.Add(new ImagenDTOconID()
                         {
-                            ID = Imagen.ImagenID,
-                            Ruta = Imagen.ImgPath,
+                            ID = Img.ImagenID,
+                            Imagen = Img.ImagenData
                         });
                     }
                     respuesta.Exito = true;
@@ -88,11 +88,11 @@ namespace Servicios.Servicios
 
             try
             {
-                var imagenDB = await _context.Imagenes.AsNoTracking().FirstOrDefaultAsync(x => x.ImgPath == imagenDTO.Ruta);
+                var imagenDB = await _context.Imagenes.AsNoTracking().FirstOrDefaultAsync(x => x.ImagenData == imagenDTO.Imagen);
                 if (imagenDB == null)
                 {
                     var imagenNuevo = imagenDTO.Adapt<Imagen>();
-                    imagenNuevo.ImgPath = imagenDTO.Ruta;
+                    imagenNuevo.ImagenData = imagenDTO.Imagen;
                     await _context.Imagenes.AddAsync(imagenNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;
@@ -124,7 +124,7 @@ namespace Servicios.Servicios
                 var imagenBD = await _context.Imagenes.FindAsync(ID);
                 if (imagenBD != null)
                 {
-                    imagenBD.ImgPath = imagenDTO.Ruta;
+                    imagenBD.ImagenData = imagenDTO.Imagen;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = imagenBD.Adapt<ImagenDTO>();
