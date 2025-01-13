@@ -72,6 +72,7 @@ namespace Servicios.Servicios
                             UsuarioID = Zapato.UsuarioID,
                             RubroID = Zapato.RubroID,
                             Nombre = Zapato.Nombre,
+                            ImagenID = Zapato.ImagenID ?? 0
                         });
                     }
                     respuesta.Exito = true;
