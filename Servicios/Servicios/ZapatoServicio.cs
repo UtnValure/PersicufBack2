@@ -100,6 +100,8 @@ namespace Servicios.Servicios
                 if (zapatoDB == null)
                 {
                     var zapatoNuevo = zapatoDTO.Adapt<Zapato>();
+                    zapatoNuevo.TNID = zapatoDTO.TalleNumericoID;
+                    zapatoNuevo.PuntaMetalica = zapatoDTO.PuntaMetal;
                     await _context.Zapatos.AddAsync(zapatoNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

@@ -64,7 +64,7 @@ namespace Servicios.Servicios
                         respuesta.Datos.Add(new RemeraDTOconID()
                         {
                             ID = Remera.PrendaID,
-                            CorteCuelloID = Remera.CorteCuello.CCID,
+                            CorteCuelloID = Remera.CCID,
                             TalleAlfabeticoID = Remera.TAID,
                             MangaID = Remera.MangaID,
                             Precio = Remera.Precio,
@@ -101,6 +101,10 @@ namespace Servicios.Servicios
                 if (remeraDB == null)
                 {
                     var remeraNuevo = remeraDTO.Adapt<Remera>();
+                    remeraNuevo.CCID = remeraDTO.CorteCuelloID;
+                    remeraNuevo.MangaID = remeraDTO.MangaID;
+                    remeraNuevo.TAID = remeraDTO.TalleAlfabeticoID;
+
                     await _context.Remeras.AddAsync(remeraNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;
