@@ -90,6 +90,37 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<UsuarioDTOconID>> BuscarUsuario(int ID)
+        {
+            var respuesta = new Confirmacion<UsuarioDTOconID>();
+            respuesta.Datos= null;
+
+            try
+            {
+                var usuarioDB = await _context.Usuarios.FindAsync(ID);
+
+                if (usuarioDB != null)
+                {
+                    respuesta.Datos = usuarioDB.Adapt<UsuarioDTOconID>();
+                    respuesta.Datos.ID = usuarioDB.UsuarioID;
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "El usuario con ID: " + ID + " ha sido encontrado.";
+                }
+                else
+                {
+                    respuesta.Mensaje = "No se encontró el usuario con ID: " + ID;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+            }
+
+            return respuesta;
+        }
+
+
+
 
         public async Task<Confirmacion<UsuarioDTOconID>> PatchUsuarioPermiso(int ID, int PermID)
         {

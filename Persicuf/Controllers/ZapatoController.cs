@@ -48,6 +48,21 @@ namespace Persicuf.Controllers
             return StatusCode(StatusCodes.Status201Created, respuesta);
         }
 
+        [HttpGet("buscarZapatos")]
+        public async Task<ActionResult<Confirmacion<ICollection<ZapatoDTOconID>>>> buscarZapatos([FromQuery] string busqueda)
+        {
+            var respuesta = await _servicio.BuscarZapatos(busqueda);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
 
         [HttpGet("obtenerZapatos")]
         public async Task<ActionResult<Confirmacion<ICollection<ZapatoDTOconID>>>> obtenerZapatos()

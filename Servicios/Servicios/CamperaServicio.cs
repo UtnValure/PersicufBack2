@@ -89,6 +89,54 @@ namespace Servicios.Servicios
                 return (respuesta);
             }
         }
+
+        public async Task<Confirmacion<ICollection<CamperaDTOconID>>> BuscarCamperas(string busqueda)
+        {
+            var respuesta = new Confirmacion<ICollection<CamperaDTOconID>>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var camperaDB = await _context.Camperas
+                .Where(p => p.Nombre.ToLower().Contains(busqueda.ToLower()))
+                .OrderByDescending(p => p.Nombre.ToLower().StartsWith(busqueda.ToLower()))
+                .ThenBy(p => p.Nombre)
+                .ToListAsync();
+
+
+
+                if (camperaDB.Count() != 0)
+                {
+                    respuesta.Datos = new List<CamperaDTOconID>();
+                    foreach (var Campera in camperaDB)
+                    {
+                        respuesta.Datos.Add(new CamperaDTOconID()
+                        {
+                            ID = Campera.PrendaID,
+                            Precio = Campera.Precio,
+                            ColorID = Campera.ColorID,
+                            MaterialID = Campera.MaterialID,
+                            UsuarioID = Campera.UsuarioID,
+                            RubroID = Campera.RubroID,
+                            ImagenID = Campera.ImagenID,
+                            Nombre = Campera.Nombre,
+                        });
+                    }
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Se recuperaron todas las Camperas que coiciden con la busqueda";
+                    return respuesta;
+                }
+
+                respuesta.Mensaje = "No se encontraron camperas con ese nombre";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                return (respuesta);
+            }
+        }
+
         public async Task<Confirmacion<CamperaDTO>> PostCampera(CamperaDTO camperaDTO)
         {
             var respuesta = new Confirmacion<CamperaDTO>();

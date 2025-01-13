@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         Task<Confirmacion<PantalonDTO>> PostPantalon(PantalonDTO pantalonDTO);
         Task<Confirmacion<Pantalon>> DeletePantalon(int ID);
         Task<Confirmacion<PantalonDTO>> PutPantalon(int ID, PantalonDTO pantalonDTO);
+        Task<Confirmacion<ICollection<PantalonDTOconID>>> BuscarPantalones(string busqueda);
     }
 }

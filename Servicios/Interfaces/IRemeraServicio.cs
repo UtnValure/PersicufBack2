@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         Task<Confirmacion<RemeraDTO>> PostRemera(RemeraDTO remeraDTO);
         Task<Confirmacion<Remera>> DeleteRemera(int ID);
         Task<Confirmacion<RemeraDTO>> PutRemera(int ID, RemeraDTO remeraDTO);
+        Task<Confirmacion<ICollection<RemeraDTOconID>>> BuscarRemeras(string busqueda);
     }
 }

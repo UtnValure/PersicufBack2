@@ -64,6 +64,22 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("buscarPantalones")]
+        public async Task<ActionResult<Confirmacion<ICollection<PantalonDTOconID>>>> buscarPantalones([FromQuery] string busqueda)
+        {
+            var respuesta = await _servicio.BuscarPantalones(busqueda);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
+
         [HttpDelete("eliminarPantalon")]
         public async Task<ActionResult<Confirmacion<Pantalon>>> eliminarPantalon(int ID)
         {

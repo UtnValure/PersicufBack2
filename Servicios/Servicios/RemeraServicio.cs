@@ -90,6 +90,53 @@ namespace Servicios.Servicios
                 return (respuesta);
             }
         }
+
+        public async Task<Confirmacion<ICollection<RemeraDTOconID>>> BuscarRemeras(string busqueda)
+        {
+            var respuesta = new Confirmacion<ICollection<RemeraDTOconID>>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var remeraDB = await _context.Remeras
+                .Where(p => p.Nombre.ToLower().Contains(busqueda.ToLower()))
+                .OrderByDescending(p => p.Nombre.ToLower().StartsWith(busqueda.ToLower()))
+                .ThenBy(p => p.Nombre)
+                .ToListAsync();
+
+
+
+                if (remeraDB.Count() != 0)
+                {
+                    respuesta.Datos = new List<RemeraDTOconID>();
+                    foreach (var Remera in remeraDB)
+                    {
+                        respuesta.Datos.Add(new RemeraDTOconID()
+                        {
+                            ID = Remera.PrendaID,
+                            Precio = Remera.Precio,
+                            ColorID = Remera.ColorID,
+                            MaterialID = Remera.MaterialID,
+                            UsuarioID = Remera.UsuarioID,
+                            RubroID = Remera.RubroID,
+                            ImagenID = Remera.ImagenID,
+                            Nombre = Remera.Nombre,
+                        });
+                    }
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Se recuperaron todas las Remeras que coiciden con la busqueda";
+                    return respuesta;
+                }
+
+                respuesta.Mensaje = "No se encontraron remeras con ese nombre";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                return (respuesta);
+            }
+        }
         public async Task<Confirmacion<RemeraDTO>> PostRemera(RemeraDTO remeraDTO)
         {
             var respuesta = new Confirmacion<RemeraDTO>();

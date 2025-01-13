@@ -66,6 +66,22 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("buscarRemeras")]
+        public async Task<ActionResult<Confirmacion<ICollection<RemeraDTOconID>>>> buscarRemeras([FromQuery] string busqueda)
+        {
+            var respuesta = await _servicio.BuscarRemeras(busqueda);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
+
         [HttpDelete("eliminarRemera")]
         public async Task<ActionResult<Confirmacion<Remera>>> eliminarRemera(int ID)
         {

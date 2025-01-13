@@ -64,6 +64,22 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("buscarCamperas")]
+        public async Task<ActionResult<Confirmacion<ICollection<CamperaDTOconID>>>> buscarCamperas([FromQuery] string busqueda)
+        {
+            var respuesta = await _servicio.BuscarCamperas(busqueda);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
+
         [HttpDelete("eliminarCampera")]
         public async Task<ActionResult<Confirmacion<Campera>>> eliminarCampera(int ID)
         {

@@ -89,6 +89,54 @@ namespace Servicios.Servicios
                 return (respuesta);
             }
         }
+
+        public async Task<Confirmacion<ICollection<ZapatoDTOconID>>> BuscarZapatos(string busqueda)
+        {
+            var respuesta = new Confirmacion<ICollection<ZapatoDTOconID>>();
+            respuesta.Datos = null;
+
+            try
+            {
+                var zapatoDB = await _context.Zapatos
+                .Where(p => p.Nombre.ToLower().Contains(busqueda.ToLower()))
+                .OrderByDescending(p => p.Nombre.ToLower().StartsWith(busqueda.ToLower()))
+                .ThenBy(p => p.Nombre)
+                .ToListAsync();
+
+
+
+                if (zapatoDB.Count() != 0)
+                {
+                    respuesta.Datos = new List<ZapatoDTOconID>();
+                    foreach (var Zapato in zapatoDB)
+                    {
+                        respuesta.Datos.Add(new ZapatoDTOconID()
+                        {
+                            ID = Zapato.PrendaID,
+                            Precio = Zapato.Precio,
+                            ColorID = Zapato.ColorID,
+                            MaterialID = Zapato.MaterialID,
+                            UsuarioID = Zapato.UsuarioID,
+                            RubroID = Zapato.RubroID,
+                            ImagenID = Zapato.ImagenID,
+                            Nombre = Zapato.Nombre,
+                        });
+                    }
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Se recuperaron todas los Zapatos que coiciden con la busqueda";
+                    return respuesta;
+                }
+
+                respuesta.Mensaje = "No se encontraron zapatos con ese nombre";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                return (respuesta);
+            }
+        }
+
         public async Task<Confirmacion<ZapatoDTO>> PostZapato(ZapatoDTO zapatoDTO)
         {
             var respuesta = new Confirmacion<ZapatoDTO>();

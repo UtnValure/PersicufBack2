@@ -64,6 +64,23 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+
+        [HttpGet("BuscarUsuario")]
+        public async Task<ActionResult<Confirmacion<ICollection<UsuarioDTOconID>>>> BuscarUsuario(int ID)
+        {
+            var respuesta = await _servicio.BuscarUsuario(ID);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
+
         [HttpDelete("eliminarUsuario")]
         public async Task<ActionResult<Confirmacion<Usuario>>> eliminarUsuario(int ID)
         {

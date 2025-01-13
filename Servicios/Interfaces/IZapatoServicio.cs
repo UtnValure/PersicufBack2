@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         Task<Confirmacion<ZapatoDTO>> PostZapato(ZapatoDTO zapatoDTO);
         Task<Confirmacion<Zapato>> DeleteZapato(int ID);
         Task<Confirmacion<ZapatoDTO>> PutZapato(int ID, ZapatoDTO zapatoDTO);
+        Task<Confirmacion<ICollection<ZapatoDTOconID>>> BuscarZapatos(string busqueda);
     }
 }
