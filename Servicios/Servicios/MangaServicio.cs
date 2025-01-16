@@ -65,6 +65,7 @@ namespace Servicios.Servicios
                         {
                             ID = Manga.MangaID,
                             Descripcion = Manga.Descripcion,
+                            Precio = Manga.Precio,
                         });
                     }
                     respuesta.Exito = true;

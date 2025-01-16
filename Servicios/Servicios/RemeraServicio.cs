@@ -151,6 +151,16 @@ namespace Servicios.Servicios
                     remeraNuevo.CCID = remeraDTO.CorteCuelloID;
                     remeraNuevo.MangaID = remeraDTO.MangaID;
                     remeraNuevo.TAID = remeraDTO.TalleAlfabeticoID;
+                    var precioResultado = await CalcularPrecio(remeraNuevo.MaterialID, remeraNuevo.MangaID, remeraNuevo.ImagenID ?? 0);
+                    if (precioResultado.Exito)
+                    {
+                        remeraNuevo.Precio = precioResultado.Datos;
+                    }
+                    else
+                    {
+                        throw new Exception("Error al calcular el precio: " + precioResultado.Mensaje);
+                    }
+
 
                     await _context.Remeras.AddAsync(remeraNuevo);
                     await _context.SaveChangesAsync();
@@ -168,6 +178,41 @@ namespace Servicios.Servicios
                 if (ex.InnerException != null)
                 {
                     respuesta.Mensaje += " Inner Exception: " + ex.InnerException.Message;
+                }
+                return (respuesta);
+            }
+        }
+
+        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int MangaID, int ImagenID)
+        {
+            var respuesta = new Confirmacion<float>();
+
+            try
+            {
+                float materialPrecio = (await _context.Materiales.FindAsync(MaterialID)).Precio;
+                float mangaPrecio = (await _context.Mangas.FindAsync(MangaID)).Precio;
+                float imagenPrecio = 0;
+                if (ImagenID != 0)
+                {
+
+                    imagenPrecio = 4000;
+                }
+                else
+                {
+                    imagenPrecio = 0;
+                }
+
+                respuesta.Datos = materialPrecio + mangaPrecio + imagenPrecio;
+                respuesta.Exito = true;
+                respuesta.Mensaje = "Se ha calculado el precio con exito";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    respuesta.Mensaje += "Inner Exception: " + ex.InnerException.Message;
                 }
                 return (respuesta);
             }

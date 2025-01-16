@@ -137,6 +137,41 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int LargoID, int ImagenID)
+        {
+            var respuesta = new Confirmacion<float>();
+
+            try
+            {
+                float materialPrecio = (await _context.Materiales.FindAsync(MaterialID)).Precio;
+                float largoPrecio = (await _context.Mangas.FindAsync(LargoID)).Precio;
+                float imagenPrecio = 0;
+                if (ImagenID != 0)
+                {
+
+                    imagenPrecio = 4000;
+                }
+                else
+                {
+                    imagenPrecio = 0;
+                }
+
+                respuesta.Datos = materialPrecio + largoPrecio + imagenPrecio;
+                respuesta.Exito = true;
+                respuesta.Mensaje = "Se ha calculado el precio con exito";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    respuesta.Mensaje += "Inner Exception: " + ex.InnerException.Message;
+                }
+                return (respuesta);
+            }
+        }
+
         public async Task<Confirmacion<PantalonDTO>> PostPantalon(PantalonDTO pantalonDTO)
         {
             var respuesta = new Confirmacion<PantalonDTO>();
@@ -149,6 +184,15 @@ namespace Servicios.Servicios
                 {
                     var pantalonNuevo = pantalonDTO.Adapt<Pantalon>();
                     pantalonNuevo.TAID = pantalonDTO.TalleAlfabeticoID;
+                    var precioResultado = await CalcularPrecio(pantalonNuevo.MaterialID, pantalonNuevo.LargoID, pantalonNuevo.ImagenID ?? 0);
+                    if (precioResultado.Exito)
+                    {
+                        pantalonNuevo.Precio = precioResultado.Datos;
+                    }
+                    else
+                    {
+                        throw new Exception("Error al calcular el precio: " + precioResultado.Mensaje);
+                    }
                     await _context.Pantalones.AddAsync(pantalonNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

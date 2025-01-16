@@ -16,5 +16,8 @@ namespace DB.Models
 
         [Required]
         public string Descripcion { get; set; }
+
+        [Required]
+        public float Precio { get; set; }
     }
 }

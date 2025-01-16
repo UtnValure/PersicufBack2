@@ -137,6 +137,40 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, bool puntaMetal)
+        {
+            var respuesta = new Confirmacion<float>();
+
+            try
+            {
+                float materialPrecio = (await _context.Materiales.FindAsync(MaterialID)).Precio;
+                float puntaPrecio = 0;
+                if (puntaMetal == true)
+                {
+
+                    puntaPrecio = 6000;
+                }
+                else
+                {
+                    puntaPrecio = 0;
+                }
+
+                respuesta.Datos = materialPrecio + puntaPrecio;
+                respuesta.Exito = true;
+                respuesta.Mensaje = "Se ha calculado el precio con exito";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    respuesta.Mensaje += "Inner Exception: " + ex.InnerException.Message;
+                }
+                return (respuesta);
+            }
+        }
+
         public async Task<Confirmacion<ZapatoDTO>> PostZapato(ZapatoDTO zapatoDTO)
         {
             var respuesta = new Confirmacion<ZapatoDTO>();
@@ -151,6 +185,15 @@ namespace Servicios.Servicios
                     zapatoNuevo.TNID = zapatoDTO.TalleNumericoID;
                     zapatoNuevo.PuntaMetalica = zapatoDTO.PuntaMetal;
                     zapatoNuevo.ImagenID = null;
+                    var precioResultado = await CalcularPrecio(zapatoNuevo.MaterialID, zapatoNuevo.PuntaMetalica);
+                    if (precioResultado.Exito)
+                    {
+                        zapatoNuevo.Precio = precioResultado.Datos;
+                    }
+                    else
+                    {
+                        throw new Exception("Error al calcular el precio: " + precioResultado.Mensaje);
+                    }
                     await _context.Zapatos.AddAsync(zapatoNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

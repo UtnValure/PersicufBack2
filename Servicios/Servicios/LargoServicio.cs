@@ -67,6 +67,7 @@ namespace Servicios.Servicios
                         {
                             ID = largo.LargoID,
                             Descripcion = largo.Descripcion,
+                            Precio = largo.Precio,
 
                         });
                     }

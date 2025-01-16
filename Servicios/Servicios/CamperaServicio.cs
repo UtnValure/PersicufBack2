@@ -137,6 +137,40 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int ImagenID)
+        {
+            var respuesta = new Confirmacion<float>();
+
+            try
+            {
+                float materialPrecio = (await _context.Materiales.FindAsync(MaterialID)).Precio;
+                float imagenPrecio = 0;
+                if (ImagenID != 0)
+                {
+
+                    imagenPrecio = 4000;
+                }
+                else
+                {
+                    imagenPrecio = 0;
+                }
+
+                respuesta.Datos = materialPrecio + imagenPrecio;
+                respuesta.Exito = true;
+                respuesta.Mensaje = "Se ha calculado el precio con exito";
+                return (respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Mensaje = "Error: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    respuesta.Mensaje += "Inner Exception: " + ex.InnerException.Message;
+                }
+                return (respuesta);
+            }
+        }
+
         public async Task<Confirmacion<CamperaDTO>> PostCampera(CamperaDTO camperaDTO)
         {
             var respuesta = new Confirmacion<CamperaDTO>();
@@ -149,6 +183,15 @@ namespace Servicios.Servicios
                 {
                     var camperaNuevo = camperaDTO.Adapt<Campera>();
                     camperaNuevo.TAID = camperaDTO.TalleAlfabeticoID;
+                    var precioResultado = await CalcularPrecio(camperaNuevo.MaterialID, camperaNuevo.ImagenID ?? 0);
+                    if (precioResultado.Exito)
+                    {
+                        camperaNuevo.Precio = precioResultado.Datos;
+                    }
+                    else
+                    {
+                        throw new Exception("Error al calcular el precio: " + precioResultado.Mensaje);
+                    }
                     await _context.Camperas.AddAsync(camperaNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;

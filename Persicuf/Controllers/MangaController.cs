@@ -66,6 +66,7 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+
         [HttpDelete("eliminarManga")]
         public async Task<ActionResult<Confirmacion<Manga>>> eliminarManga(int ID)
         {
