@@ -72,6 +72,7 @@ namespace Servicios.Servicios
                             RubroID = Campera.RubroID,
                             ImagenID = Campera.ImagenID,
                             Nombre = Campera.Nombre,
+                            EstampadoID = Campera.EstampadoID,
 
                         });
                     }
@@ -120,6 +121,7 @@ namespace Servicios.Servicios
                             RubroID = Campera.RubroID,
                             ImagenID = Campera.ImagenID,
                             Nombre = Campera.Nombre,
+                            EstampadoID = Campera.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -137,7 +139,7 @@ namespace Servicios.Servicios
             }
         }
 
-        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int ImagenID)
+        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int EstampadoID)
         {
             var respuesta = new Confirmacion<float>();
 
@@ -145,7 +147,7 @@ namespace Servicios.Servicios
             {
                 float materialPrecio = (await _context.Materiales.FindAsync(MaterialID)).Precio;
                 float imagenPrecio = 0;
-                if (ImagenID != 0)
+                if (EstampadoID != 0)
                 {
 
                     imagenPrecio = 4000;
@@ -230,6 +232,7 @@ namespace Servicios.Servicios
                     camperaBD.RubroID = camperaDTO.RubroID;
                     camperaBD.Precio = camperaDTO.Precio;
                     camperaBD.Nombre = camperaDTO.Nombre;
+                    camperaBD.EstampadoID = camperaDTO.EstampadoID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = camperaBD.Adapt<CamperaDTO>();

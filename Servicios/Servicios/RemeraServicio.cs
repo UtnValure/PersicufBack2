@@ -74,6 +74,7 @@ namespace Servicios.Servicios
                             RubroID = Remera.RubroID,
                             ImagenID = Remera.ImagenID,
                             Nombre = Remera.Nombre,
+                            EstampadoID = Remera.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -121,6 +122,7 @@ namespace Servicios.Servicios
                             RubroID = Remera.RubroID,
                             ImagenID = Remera.ImagenID,
                             Nombre = Remera.Nombre,
+                            EstampadoID = Remera.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -183,7 +185,7 @@ namespace Servicios.Servicios
             }
         }
 
-        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int MangaID, int ImagenID)
+        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int MangaID, int EstampadoID)
         {
             var respuesta = new Confirmacion<float>();
 
@@ -192,7 +194,7 @@ namespace Servicios.Servicios
                 float materialPrecio = (await _context.Materiales.FindAsync(MaterialID)).Precio;
                 float mangaPrecio = (await _context.Mangas.FindAsync(MangaID)).Precio;
                 float imagenPrecio = 0;
-                if (ImagenID != 0)
+                if (EstampadoID != 0)
                 {
 
                     imagenPrecio = 4000;
@@ -238,6 +240,7 @@ namespace Servicios.Servicios
                     remeraBD.RubroID = remeraDTO.RubroID;
                     remeraBD.Precio = remeraDTO.Precio;
                     remeraBD.Nombre = remeraDTO.Nombre;
+                    remeraBD.EstampadoID = remeraDTO.EstampadoID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = remeraBD.Adapt<RemeraDTO>();

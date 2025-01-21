@@ -73,6 +73,7 @@ namespace Servicios.Servicios
                             RubroID = Pantalon.RubroID,
                             ImagenID = Pantalon.ImagenID,
                             Nombre = Pantalon.Nombre,
+                            EstampadoID = Pantalon.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -120,6 +121,7 @@ namespace Servicios.Servicios
                             RubroID = Pantalon.RubroID,
                             ImagenID = Pantalon.ImagenID,
                             Nombre = Pantalon.Nombre,
+                            EstampadoID = Pantalon.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -137,16 +139,16 @@ namespace Servicios.Servicios
             }
         }
 
-        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int LargoID, int ImagenID)
+        public async Task<Confirmacion<float>> CalcularPrecio(int MaterialID, int LargoID, int EstampadoID)
         {
             var respuesta = new Confirmacion<float>();
 
             try
             {
                 float materialPrecio = (await _context.Materiales.FindAsync(MaterialID)).Precio;
-                float largoPrecio = (await _context.Mangas.FindAsync(LargoID)).Precio;
+                float largoPrecio = (await _context.Largos.FindAsync(LargoID)).Precio;
                 float imagenPrecio = 0;
-                if (ImagenID != 0)
+                if (EstampadoID != 0)
                 {
 
                     imagenPrecio = 4000;
@@ -233,6 +235,7 @@ namespace Servicios.Servicios
                     pantalonBD.RubroID = pantalonDTO.RubroID;
                     pantalonBD.Precio = pantalonDTO.Precio;
                     pantalonBD.Nombre = pantalonDTO.Nombre;
+                    pantalonBD.EstampadoID = pantalonDTO.EstampadoID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = pantalonBD.Adapt<PantalonDTO>();

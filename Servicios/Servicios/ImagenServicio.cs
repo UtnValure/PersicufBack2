@@ -64,7 +64,8 @@ namespace Servicios.Servicios
                         respuesta.Datos.Add(new ImagenDTOconID()
                         {
                             ID = Img.ImagenID,
-                            Imagen = Img.ImagenData
+                            Imagen = Img.ImagenData,
+                            UbicacionID = Img.UbicacionID ?? 0,
                         });
                     }
                     respuesta.Exito = true;

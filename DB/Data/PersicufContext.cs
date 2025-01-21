@@ -21,7 +21,6 @@ namespace DB.Data
         public DbSet<PedidoPrenda> PedidosPrenda { get; set; }
         public DbSet<Permiso> Permisos { get; set; }
         public DbSet<Prenda> Prendas { get; set; }
-        public DbSet<PrendaEstampado> PrendaEstampados { get; set; }
         public DbSet<Provincia> Provincias { get; set; }
         public DbSet<Remera> Remeras { get; set; }
         public DbSet<Rubro> Rubros { get; set; }
@@ -47,7 +46,6 @@ namespace DB.Data
             modelBuilder.Entity<PedidoPrenda>().ToTable("PedidoPrenda");
             modelBuilder.Entity<Permiso>().ToTable("Permiso");
             modelBuilder.Entity<Prenda>().ToTable("Prenda");
-            modelBuilder.Entity<PrendaEstampado>().ToTable("PrendaEstampado");
             modelBuilder.Entity<Provincia>().ToTable("Provincia");
             modelBuilder.Entity<Remera>().ToTable("Remera");
             modelBuilder.Entity<Rubro>().ToTable("Rubro");

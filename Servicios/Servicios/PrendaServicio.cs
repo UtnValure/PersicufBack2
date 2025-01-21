@@ -71,6 +71,7 @@ namespace Servicios.Servicios
                             RubroID = Prenda.RubroID,
                             ImagenID = Prenda.ImagenID,
                             Nombre = Prenda.Nombre,
+                            EstampadoID = Prenda.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -118,6 +119,7 @@ namespace Servicios.Servicios
                             RubroID = Prenda.RubroID,
                             ImagenID = Prenda.ImagenID,
                             Nombre = Prenda.Nombre,
+                            EstampadoID = Prenda.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -162,6 +164,7 @@ namespace Servicios.Servicios
                             RubroID = Prenda.RubroID,
                             ImagenID = Prenda.ImagenID,
                             Nombre = Prenda.Nombre,
+                            EstampadoID = Prenda.EstampadoID,
                         });
                     }
                     respuesta.Exito = true;
@@ -229,6 +232,7 @@ namespace Servicios.Servicios
                     prendaBD.RubroID = prendaDTO.RubroID;
                     prendaBD.Precio = prendaDTO.Precio;
                     prendaBD.Nombre = prendaDTO.Nombre; 
+                    prendaBD.EstampadoID = prendaDTO.EstampadoID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = prendaBD.Adapt<PrendaDTO>();

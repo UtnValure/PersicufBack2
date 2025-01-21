@@ -10,6 +10,8 @@ namespace CORE.DTOs
     public class ImagenDTO
     {
         public byte[] Imagen { get; set; }
+
+        public int? UbicacionID { get; set; }
     }
 
     public class ImagenDTOconID : ImagenDTO

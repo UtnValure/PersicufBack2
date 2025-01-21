@@ -51,6 +51,11 @@ namespace DB.Models
         [ForeignKey("ImagenID")]
         public virtual Imagen Imagen { get; set; }
 
+        public int? EstampadoID { get; set; }
+
+        [ForeignKey("EstampadoID")]
+        public virtual Imagen Estampado { get; set; }
+
 
 
 

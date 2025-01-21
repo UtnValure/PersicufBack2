@@ -17,6 +17,11 @@ namespace DB.Models
 
         [Required]
         public byte[] ImagenData { get; set; }
+
+        public int? UbicacionID { get; set; }
+
+        [ForeignKey("UbicacionID")]
+        public virtual Ubicacion Ubicacion { get; set; }
     }
 }
 

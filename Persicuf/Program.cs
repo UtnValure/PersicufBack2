@@ -39,7 +39,6 @@ builder.Services.AddScoped<IPantalonServicio, PantalonServicio>();
 builder.Services.AddScoped<IPedidoPrendaServicio, PedidoPrendaServicio>();
 builder.Services.AddScoped<IPedidoServicio, PedidoServicio>();
 builder.Services.AddScoped<IPermisoServicio, PermisoServicio>();
-builder.Services.AddScoped<IPrendaEstampadoServicio, PrendaEstampadoServicio>();
 builder.Services.AddScoped<IPrendaServicio, PrendaServicio>();
 builder.Services.AddScoped<IProvinciaServicio, ProvinciaServicio>();
 builder.Services.AddScoped<IRemeraServicio, RemeraServicio>();
