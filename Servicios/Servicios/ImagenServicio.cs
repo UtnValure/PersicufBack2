@@ -64,7 +64,7 @@ namespace Servicios.Servicios
                         respuesta.Datos.Add(new ImagenDTOconID()
                         {
                             ID = Img.ImagenID,
-                            Imagen = Img.ImagenData,
+                            Path = Img.ImagenPath,
                             UbicacionID = Img.UbicacionID ?? 0,
                         });
                     }
@@ -89,11 +89,11 @@ namespace Servicios.Servicios
 
             try
             {
-                var imagenDB = await _context.Imagenes.AsNoTracking().FirstOrDefaultAsync(x => x.ImagenData == imagenDTO.Imagen);
+                var imagenDB = await _context.Imagenes.AsNoTracking().FirstOrDefaultAsync(x => x.ImagenPath == imagenDTO.Path);
                 if (imagenDB == null)
                 {
                     var imagenNuevo = imagenDTO.Adapt<Imagen>();
-                    imagenNuevo.ImagenData = imagenDTO.Imagen;
+                    imagenNuevo.ImagenPath = imagenDTO.Path;
                     await _context.Imagenes.AddAsync(imagenNuevo);
                     await _context.SaveChangesAsync();
                     respuesta.Exito = true;
@@ -125,7 +125,7 @@ namespace Servicios.Servicios
                 var imagenBD = await _context.Imagenes.FindAsync(ID);
                 if (imagenBD != null)
                 {
-                    imagenBD.ImagenData = imagenDTO.Imagen;
+                    imagenBD.ImagenPath = imagenDTO.Path;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = imagenBD.Adapt<ImagenDTO>();

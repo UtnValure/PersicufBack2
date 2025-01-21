@@ -38,7 +38,7 @@ namespace Persicuf.Controllers
         [HttpPost("crearImagen")]
         public async Task<ActionResult<Confirmacion<ImagenDTO>>> crearImagen([FromBody] ImagenDTO imagenDTO)
         {
-            if (imagenDTO?.Imagen == null || imagenDTO.Imagen.Length == 0)
+            if (imagenDTO?.Path == null || imagenDTO.Path.Length == 0)
             {
                 return BadRequest("No image data provided.");
             }

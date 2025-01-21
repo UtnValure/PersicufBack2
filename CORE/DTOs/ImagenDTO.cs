@@ -9,7 +9,7 @@ namespace CORE.DTOs
 {
     public class ImagenDTO
     {
-        public byte[] Imagen { get; set; }
+        public string Path { get; set; }
 
         public int? UbicacionID { get; set; }
     }
