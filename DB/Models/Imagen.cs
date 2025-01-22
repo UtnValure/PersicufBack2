@@ -24,4 +24,3 @@ namespace DB.Models
         public virtual Ubicacion Ubicacion { get; set; }
     }
 }
-

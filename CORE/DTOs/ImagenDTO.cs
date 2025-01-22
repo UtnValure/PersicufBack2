@@ -19,4 +19,3 @@ namespace CORE.DTOs
         public int ID { get; set; }
     }
 }
-
