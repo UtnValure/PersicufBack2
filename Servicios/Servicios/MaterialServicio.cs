@@ -116,6 +116,42 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<MaterialDTOconID>> BuscarMaterialPorID(int ID)
+        {
+            var respuesta = new Confirmacion<MaterialDTOconID>();
+
+            try
+            {
+                var materialDB = await _context.Materiales.FirstOrDefaultAsync(m => m.MaterialID == ID);
+
+                if (materialDB != null)
+                {
+                    respuesta.Datos = new MaterialDTOconID
+                    {
+                        ID = materialDB.MaterialID,
+                        Descripcion = materialDB.Descripcion,
+
+                    };
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Material encontrado exitosamente";
+                }
+                else
+                {
+                    respuesta.Exito = false;
+                    respuesta.Mensaje = $"No se encontró ningún material con el ID {ID}";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                respuesta.Exito = false;
+                respuesta.Mensaje = "Ocurrió un error al buscar el material: " + ex.Message;
+            }
+
+            return respuesta;
+        }
+
+
         public async Task<Confirmacion<MaterialDTO>> PutMaterial(int ID, MaterialDTO materialDTO)
         {
             var respuesta = new Confirmacion<MaterialDTO>();

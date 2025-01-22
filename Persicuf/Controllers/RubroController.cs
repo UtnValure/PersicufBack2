@@ -33,6 +33,21 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("buscarRubroPorID")]
+        public async Task<ActionResult<Confirmacion<ICollection<RubroDTOconID>>>> BuscarRubroPorID([FromQuery] int ID)
+        {
+            var respuesta = await _servicio.BuscarRubroPorID(ID);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
         [HttpPost("crearRubro")]
         public async Task<ActionResult<Confirmacion<RubroDTO>>> crearRubro(RubroDTO rubroDTO)
         {

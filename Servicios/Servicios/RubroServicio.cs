@@ -85,6 +85,43 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<RubroDTOconID>> BuscarRubroPorID(int ID)
+        {
+            var respuesta = new Confirmacion<RubroDTOconID>();
+
+            try
+            {
+              
+                var rubroDB = await _context.Rubros.FirstOrDefaultAsync(r => r.RubroID == ID);
+
+                if (rubroDB != null)
+                {
+                   
+                    respuesta.Datos = new RubroDTOconID
+                    {
+                        ID = rubroDB.RubroID,
+                        Descripcion = rubroDB.Descripcion,
+                        
+                    };
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Rubro encontrado exitosamente";
+                }
+                else
+                {
+                    respuesta.Exito = false;
+                    respuesta.Mensaje = $"No se encontró ningún rubro con el ID {ID}";
+                }
+            }
+            catch (Exception ex)
+            {
+               
+                respuesta.Exito = false;
+                respuesta.Mensaje = "Ocurrió un error al buscar el rubro: " + ex.Message;
+            }
+
+            return respuesta;
+        }
+
 
         public async Task<Confirmacion<RubroDTO>> PostRubro(RubroDTO rubroDTO)
         {

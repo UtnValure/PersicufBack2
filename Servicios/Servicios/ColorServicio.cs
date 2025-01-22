@@ -47,6 +47,40 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<ColorDTOconID>> BuscarColorPorID(int ID)
+        {
+            var respuesta = new Confirmacion<ColorDTOconID>();
+
+            try
+            {
+                var colorDB = await _context.Colores.FirstOrDefaultAsync(c => c.ColorID == ID);
+
+                if (colorDB != null)
+                {
+
+                    respuesta.Datos = new ColorDTOconID
+                    {
+                        ID = colorDB.ColorID,
+                        Nombre = colorDB.ColorNombre,
+                        CodigoHexa = colorDB.CodigoHexa, 
+                    };
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Color encontrado exitosamente";
+                }
+                else
+                {
+                    respuesta.Exito = false;
+                    respuesta.Mensaje = $"No se encontró ningún color con el ID {ID}";
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.Exito = false;
+                respuesta.Mensaje = "Ocurrió un error al buscar el color: " + ex.Message;
+            }
+
+            return respuesta;
+        }
 
 
 

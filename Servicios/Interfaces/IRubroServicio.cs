@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         Task<Confirmacion<RubroDTO>> PostRubro(RubroDTO RubroDTO);
         Task<Confirmacion<Rubro>> DeleteRubro(int ID);
         Task<Confirmacion<RubroDTO>> PutRubro(int ID, RubroDTO RubroDTO);
+        Task<Confirmacion<RubroDTOconID>> BuscarRubroPorID(int ID);
     }
 }

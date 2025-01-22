@@ -96,6 +96,21 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("buscarPrendaPorID")]
+        public async Task<ActionResult<Confirmacion<ICollection<PrendaDTOconID>>>> BuscarPrendaPorID([FromQuery] int ID)
+        {
+            var respuesta = await _servicio.BuscarPrendaPorID(ID);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
         [HttpDelete("eliminarPrenda")]
         public async Task<ActionResult<Confirmacion<Prenda>>> eliminarPrenda(int ID)
         {

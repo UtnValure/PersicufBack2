@@ -182,6 +182,49 @@ namespace Servicios.Servicios
             }
         }
 
+        public async Task<Confirmacion<PrendaDTOconID>> BuscarPrendaPorID(int ID)
+        {
+            var respuesta = new Confirmacion<PrendaDTOconID>();
+
+            try
+            {
+                var prendaDB = await _context.Prendas.FirstOrDefaultAsync(p => p.PrendaID == ID);
+
+                if (prendaDB != null)
+                {
+                    // Mapea la entidad a DTO
+                    respuesta.Datos = new PrendaDTOconID
+                    {
+                        ID = prendaDB.PrendaID,
+                        Precio = prendaDB.Precio,
+                        ColorID = prendaDB.ColorID,
+                        MaterialID = prendaDB.MaterialID,
+                        UsuarioID = prendaDB.UsuarioID,
+                        RubroID = prendaDB.RubroID,
+                        ImagenID = prendaDB.ImagenID,
+                        Nombre = prendaDB.Nombre,
+                        EstampadoID = prendaDB.EstampadoID,
+                    };
+                    respuesta.Exito = true;
+                    respuesta.Mensaje = "Prenda encontrada exitosamente";
+                }
+                else
+                {
+                    respuesta.Exito = false;
+                    respuesta.Mensaje = $"No se encontró ninguna prenda con el ID {ID}";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier error inesperado
+                respuesta.Exito = false;
+                respuesta.Mensaje = "Ocurrió un error al buscar la prenda: " + ex.Message;
+            }
+
+            return respuesta;
+        }
+
+
 
         public async Task<Confirmacion<PrendaDTO>> PostPrenda(PrendaDTO prendaDTO)
         {

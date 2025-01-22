@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         Task<Confirmacion<MaterialDTO>> PostMaterial(MaterialDTO materialDTO);
         Task<Confirmacion<Material>> DeleteMaterial(int ID);
         Task<Confirmacion<MaterialDTO>> PutMaterial(int ID, MaterialDTO materialDTO);
+        Task<Confirmacion<MaterialDTOconID>> BuscarMaterialPorID(int ID);
     }
 }

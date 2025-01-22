@@ -33,6 +33,21 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("buscarColorPorID")]
+        public async Task<ActionResult<Confirmacion<ICollection<ColorDTOconID>>>> BuscarColorPorID([FromQuery] int ID)
+        {
+            var respuesta = await _servicio.BuscarColorPorID(ID);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
         [HttpPost("crearColor")]
         public async Task<ActionResult<Confirmacion<ColorDTO>>> crearColor(ColorDTO colorDTO)
         {

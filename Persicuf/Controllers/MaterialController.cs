@@ -33,6 +33,21 @@ namespace Persicuf.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("buscarMaterialPorID")]
+        public async Task<ActionResult<Confirmacion<ICollection<MaterialDTOconID>>>> BuscarMaterialPorID([FromQuery] int ID)
+        {
+            var respuesta = await _servicio.BuscarMaterialPorID(ID);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return Ok(respuesta);
+        }
+
         [HttpPost("crearMaterial")]
         public async Task<ActionResult<Confirmacion<MaterialDTO>>> crearMaterial(MaterialDTO materialDTO)
         {
