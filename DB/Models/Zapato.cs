@@ -19,7 +19,5 @@ namespace DB.Models
         [ForeignKey("TNID")]
         public virtual TalleNumerico TalleNumerico { get; set; }
 
-        [NotMapped]
-        public new int? ImagenID { get; set; }
     }
 }

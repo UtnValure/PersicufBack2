@@ -72,7 +72,7 @@ namespace Servicios.Servicios
                             UsuarioID = Zapato.UsuarioID,
                             RubroID = Zapato.RubroID,
                             Nombre = Zapato.Nombre,
-                            ImagenID = Zapato.ImagenID ?? 0
+                            ImagenID = Zapato.ImagenID
                         });
                     }
                     respuesta.Exito = true;
@@ -184,7 +184,6 @@ namespace Servicios.Servicios
                     var zapatoNuevo = zapatoDTO.Adapt<Zapato>();
                     zapatoNuevo.TNID = zapatoDTO.TalleNumericoID;
                     zapatoNuevo.PuntaMetalica = zapatoDTO.PuntaMetal;
-                    zapatoNuevo.ImagenID = null;
                     var precioResultado = await CalcularPrecio(zapatoNuevo.MaterialID, zapatoNuevo.PuntaMetalica);
                     if (precioResultado.Exito)
                     {
@@ -233,6 +232,7 @@ namespace Servicios.Servicios
                     zapatoBD.RubroID = zapatoDTO.RubroID;
                     zapatoBD.Precio = zapatoDTO.Precio;
                     zapatoBD.Nombre = zapatoDTO.Nombre;
+                    zapatoBD.ImagenID = zapatoDTO.ImagenID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = zapatoBD.Adapt<ZapatoDTO>();
