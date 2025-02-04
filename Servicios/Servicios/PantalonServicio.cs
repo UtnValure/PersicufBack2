@@ -74,6 +74,7 @@ namespace Servicios.Servicios
                             ImagenID = Pantalon.ImagenID,
                             Nombre = Pantalon.Nombre,
                             EstampadoID = Pantalon.EstampadoID,
+                            PostID = Pantalon.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -122,6 +123,7 @@ namespace Servicios.Servicios
                             ImagenID = Pantalon.ImagenID,
                             Nombre = Pantalon.Nombre,
                             EstampadoID = Pantalon.EstampadoID,
+                            PostID = Pantalon.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -236,6 +238,7 @@ namespace Servicios.Servicios
                     pantalonBD.Precio = pantalonDTO.Precio;
                     pantalonBD.Nombre = pantalonDTO.Nombre;
                     pantalonBD.EstampadoID = pantalonDTO.EstampadoID;
+                    pantalonBD.PostID = pantalonDTO.PostID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = pantalonBD.Adapt<PantalonDTO>();

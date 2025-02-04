@@ -72,6 +72,7 @@ namespace Servicios.Servicios
                             ImagenID = Prenda.ImagenID,
                             Nombre = Prenda.Nombre,
                             EstampadoID = Prenda.EstampadoID,
+                            PostID = Prenda.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -120,6 +121,7 @@ namespace Servicios.Servicios
                             ImagenID = Prenda.ImagenID,
                             Nombre = Prenda.Nombre,
                             EstampadoID = Prenda.EstampadoID,
+                            PostID = Prenda.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -165,6 +167,7 @@ namespace Servicios.Servicios
                             ImagenID = Prenda.ImagenID,
                             Nombre = Prenda.Nombre,
                             EstampadoID = Prenda.EstampadoID,
+                            PostID = Prenda.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -204,6 +207,7 @@ namespace Servicios.Servicios
                         ImagenID = prendaDB.ImagenID,
                         Nombre = prendaDB.Nombre,
                         EstampadoID = prendaDB.EstampadoID,
+                        PostID = prendaDB.PostID,
                     };
                     respuesta.Exito = true;
                     respuesta.Mensaje = "Prenda encontrada exitosamente";
@@ -276,6 +280,7 @@ namespace Servicios.Servicios
                     prendaBD.Precio = prendaDTO.Precio;
                     prendaBD.Nombre = prendaDTO.Nombre; 
                     prendaBD.EstampadoID = prendaDTO.EstampadoID;
+                    prendaBD.PostID = prendaDTO.PostID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = prendaBD.Adapt<PrendaDTO>();

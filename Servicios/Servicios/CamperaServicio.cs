@@ -73,6 +73,7 @@ namespace Servicios.Servicios
                             ImagenID = Campera.ImagenID,
                             Nombre = Campera.Nombre,
                             EstampadoID = Campera.EstampadoID,
+                            PostID = Campera.PostID,
 
                         });
                     }
@@ -122,6 +123,7 @@ namespace Servicios.Servicios
                             ImagenID = Campera.ImagenID,
                             Nombre = Campera.Nombre,
                             EstampadoID = Campera.EstampadoID,
+                            PostID = Campera.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -233,6 +235,7 @@ namespace Servicios.Servicios
                     camperaBD.Precio = camperaDTO.Precio;
                     camperaBD.Nombre = camperaDTO.Nombre;
                     camperaBD.EstampadoID = camperaDTO.EstampadoID;
+                    camperaBD.PostID = camperaDTO.PostID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = camperaBD.Adapt<CamperaDTO>();

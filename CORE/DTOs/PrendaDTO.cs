@@ -18,6 +18,8 @@ namespace CORE.DTOs
         public string Nombre { get; set; }
         public int? EstampadoID { get; set; }
 
+        public int PostID {  get; set; }
+
     }
     public class PrendaDTOconID : PrendaDTO 
     { 

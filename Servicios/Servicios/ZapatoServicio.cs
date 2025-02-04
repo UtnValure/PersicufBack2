@@ -72,7 +72,8 @@ namespace Servicios.Servicios
                             UsuarioID = Zapato.UsuarioID,
                             RubroID = Zapato.RubroID,
                             Nombre = Zapato.Nombre,
-                            ImagenID = Zapato.ImagenID
+                            ImagenID = Zapato.ImagenID,
+                            PostID= Zapato.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -120,6 +121,7 @@ namespace Servicios.Servicios
                             RubroID = Zapato.RubroID,
                             ImagenID = Zapato.ImagenID,
                             Nombre = Zapato.Nombre,
+                            PostID = Zapato.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -233,6 +235,7 @@ namespace Servicios.Servicios
                     zapatoBD.Precio = zapatoDTO.Precio;
                     zapatoBD.Nombre = zapatoDTO.Nombre;
                     zapatoBD.ImagenID = zapatoDTO.ImagenID;
+                    zapatoBD.PostID = zapatoDTO.PostID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = zapatoBD.Adapt<ZapatoDTO>();

@@ -75,6 +75,7 @@ namespace Servicios.Servicios
                             ImagenID = Remera.ImagenID,
                             Nombre = Remera.Nombre,
                             EstampadoID = Remera.EstampadoID,
+                            PostID = Remera.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -123,6 +124,7 @@ namespace Servicios.Servicios
                             ImagenID = Remera.ImagenID,
                             Nombre = Remera.Nombre,
                             EstampadoID = Remera.EstampadoID,
+                            PostID = Remera.PostID,
                         });
                     }
                     respuesta.Exito = true;
@@ -241,6 +243,7 @@ namespace Servicios.Servicios
                     remeraBD.Precio = remeraDTO.Precio;
                     remeraBD.Nombre = remeraDTO.Nombre;
                     remeraBD.EstampadoID = remeraDTO.EstampadoID;
+                    remeraBD.PostID = remeraDTO.PostID;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = remeraBD.Adapt<RemeraDTO>();

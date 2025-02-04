@@ -56,8 +56,8 @@ namespace DB.Models
         [ForeignKey("EstampadoID")]
         public virtual Imagen Estampado { get; set; }
 
-
-
+        [Required]
+        public int PostID { get; set; }
 
 
     }
