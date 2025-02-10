@@ -67,8 +67,10 @@ namespace Servicios.Servicios
                         {
                             ID = domicilio.DomicilioID,
                             Calle = domicilio.Calle,
-                            Altura = domicilio.Altura,
-                            Departamento = domicilio.Departamento,
+                            Numero = domicilio.Numero,
+                            Piso = domicilio.Piso,
+                            Depto = domicilio.Depto,
+                            Descripcion = domicilio.Descripcion,
                             UsuarioID = domicilio.UsuarioID,
                             LocalidadID = domicilio.LocalidadID,
                         });
@@ -96,7 +98,13 @@ namespace Servicios.Servicios
 
             try
             {
-                var domicilioDB = await _context.Domicilios.AsNoTracking().FirstOrDefaultAsync(x => x.UsuarioID == domicilioDTO.UsuarioID);
+                var domicilioDB = await _context.Domicilios.AsNoTracking().FirstOrDefaultAsync(x => x.UsuarioID == domicilioDTO.UsuarioID
+                 && x.LocalidadID == domicilioDTO.LocalidadID 
+                 && x.Calle == domicilioDTO.Calle 
+                 && x.Numero == domicilioDTO.Numero 
+                 && x.Piso == domicilioDTO.Piso 
+                 && x.Depto == domicilioDTO.Depto);
+
                 if (domicilioDB == null)
                 {
                     var domicilioNuevo = domicilioDTO.Adapt<Domicilio>();
@@ -132,8 +140,10 @@ namespace Servicios.Servicios
                 if (domicilioBD != null)
                 {
                     domicilioBD.Calle = domicilioDTO.Calle;
-                    domicilioBD.Altura = domicilioDTO.Altura;
-                    domicilioBD.Departamento = domicilioDTO.Departamento;
+                    domicilioBD.Numero = domicilioDTO.Numero;
+                    domicilioBD.Piso = domicilioDTO.Piso;
+                    domicilioBD.Depto = domicilioDTO.Depto;
+                    domicilioBD.Descripcion = domicilioDTO.Descripcion;
                     domicilioBD.UsuarioID = domicilioDTO.UsuarioID;
                     domicilioBD.LocalidadID = domicilioDTO.LocalidadID;
 

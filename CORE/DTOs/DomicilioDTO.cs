@@ -10,8 +10,10 @@ namespace CORE.DTOs
     public class DomicilioDTO
     {
         public string Calle {  get; set; }
-        public int Altura { get; set; }
-        public string Departamento { get; set; }
+        public int Numero { get; set; }
+        public string Piso { get; set; }
+        public string Depto { get; set; }
+        public string Descripcion { get; set; }
         public int UsuarioID { get; set; }
         public int LocalidadID { get; set; }
 

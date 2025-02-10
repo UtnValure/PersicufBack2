@@ -18,9 +18,13 @@ namespace DB.Models
         public string Calle { get; set; }
 
         [Required]
-        public int Altura { get; set; }
+        public int Numero { get; set; }
 
-        public string Departamento { get; set; }
+        public string Piso { get; set; }
+
+        public string Depto { get; set; }
+
+        public string Descripcion { get; set; }
 
         [Required]
         public int UsuarioID { get; set; }
