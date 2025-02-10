@@ -131,9 +131,7 @@ namespace Servicios.Servicios
 
             try
             {
-                var pedidoDB = await _context.Pedidos.AsNoTracking().FirstOrDefaultAsync(x => x.DomicilioID == pedidoDTO.DomicilioID && x.UsuarioID == pedidoDTO.UsuarioID);
-                if (pedidoDB == null)
-                {
+
                     var pedidoNuevo = pedidoDTO.Adapt<Pedido>();
                     await _context.Pedidos.AddAsync(pedidoNuevo);
                     await _context.SaveChangesAsync();
@@ -141,9 +139,7 @@ namespace Servicios.Servicios
                     respuesta.Mensaje = "El pedido se creó correctamente.";
                     respuesta.Datos = pedidoDTO;
                     return (respuesta);
-                }
-                respuesta.Mensaje = "El pedido ya existe.";
-                return (respuesta);
+
             }
             catch (Exception ex)
             {
