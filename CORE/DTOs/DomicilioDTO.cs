@@ -11,7 +11,7 @@ namespace CORE.DTOs
     {
         public string Calle {  get; set; }
         public int Numero { get; set; }
-        public string Piso { get; set; }
+        public int Piso { get; set; }
         public string Depto { get; set; }
         public string Descripcion { get; set; }
         public int UsuarioID { get; set; }
