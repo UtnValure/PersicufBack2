@@ -50,6 +50,21 @@ namespace Persicuf.Controllers
             return StatusCode(StatusCodes.Status201Created, respuesta);
         }
 
+        [HttpPost("crearPedidoCliente")]
+        public async Task<ActionResult<Confirmacion<PedidoPrendaDTO>>> PostPedidoCliente(PedidoClienteDTO pedidoClienteDTO)
+        {
+            var respuesta = await _servicio.PostPedidoCliente(pedidoClienteDTO);
+            if (respuesta.Datos == null)
+            {
+                if (respuesta.Mensaje.StartsWith("Error"))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, respuesta);
+                }
+                return BadRequest(respuesta);
+            }
+            return StatusCode(StatusCodes.Status201Created, respuesta);
+        }
+
 
         [HttpGet("obtenerPedidosPrenda")]
         public async Task<ActionResult<Confirmacion<ICollection<PedidoPrendaDTOconID>>>> obtenerPedidosPrenda()

@@ -222,51 +222,51 @@ namespace Servicios.Servicios
             }
         }
 
-        public async Task<Confirmacion<RemeraDTO>> PostRemeraCliente(RemeraDTO remeraDTO)
-        {
-            var respuesta = new Confirmacion<RemeraDTO>();
-            respuesta.Datos = null;
+        //public async Task<Confirmacion<RemeraDTO>> PostRemeraCliente(RemeraDTO remeraDTO)
+        //{
+        //    var respuesta = new Confirmacion<RemeraDTO>();
+        //    respuesta.Datos = null;
 
-            try
-            {
-                var remeraDB = await _context.Remeras.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == remeraDTO.Nombre);
-                if (remeraDB == null)
-                {
-                    var remeraNuevo = remeraDTO.Adapt<Remera>();
-                    remeraNuevo.CCID = remeraDTO.CorteCuelloID;
-                    remeraNuevo.MangaID = remeraDTO.MangaID;
-                    remeraNuevo.TAID = remeraDTO.TalleAlfabeticoID;
-                    var precioResultado = await CalcularPrecio(remeraNuevo.MaterialID, remeraNuevo.MangaID, remeraNuevo.ImagenID ?? 0);
-                    if (precioResultado.Exito)
-                    {
-                        remeraNuevo.Precio = precioResultado.Datos;
-                    }
-                    else
-                    {
-                        throw new Exception("Error al calcular el precio: " + precioResultado.Mensaje);
-                    }
+        //    try
+        //    {
+        //        var remeraDB = await _context.Remeras.AsNoTracking().FirstOrDefaultAsync(x => x.Nombre == remeraDTO.Nombre);
+        //        if (remeraDB == null)
+        //        {
+        //            var remeraNuevo = remeraDTO.Adapt<Remera>();
+        //            remeraNuevo.CCID = remeraDTO.CorteCuelloID;
+        //            remeraNuevo.MangaID = remeraDTO.MangaID;
+        //            remeraNuevo.TAID = remeraDTO.TalleAlfabeticoID;
+        //            var precioResultado = await CalcularPrecio(remeraNuevo.MaterialID, remeraNuevo.MangaID, remeraNuevo.ImagenID ?? 0);
+        //            if (precioResultado.Exito)
+        //            {
+        //                remeraNuevo.Precio = precioResultado.Datos;
+        //            }
+        //            else
+        //            {
+        //                throw new Exception("Error al calcular el precio: " + precioResultado.Mensaje);
+        //            }
 
 
-                    await _context.Remeras.AddAsync(remeraNuevo);
-                    await _context.SaveChangesAsync();
-                    respuesta.Exito = true;
-                    respuesta.Mensaje = "El remera se creó correctamente.";
-                    respuesta.Datos = remeraDTO;
-                    return (respuesta);
-                }
-                respuesta.Mensaje = "La remera con nombre: " + remeraDTO.Nombre + " ya existe.";
-                return (respuesta);
-            }
-            catch (Exception ex)
-            {
-                respuesta.Mensaje = "Error: " + ex.Message;
-                if (ex.InnerException != null)
-                {
-                    respuesta.Mensaje += " Inner Exception: " + ex.InnerException.Message;
-                }
-                return (respuesta);
-            }
-        }
+        //            await _context.Remeras.AddAsync(remeraNuevo);
+        //            await _context.SaveChangesAsync();
+        //            respuesta.Exito = true;
+        //            respuesta.Mensaje = "El remera se creó correctamente.";
+        //            respuesta.Datos = remeraDTO;
+        //            return (respuesta);
+        //        }
+        //        respuesta.Mensaje = "La remera con nombre: " + remeraDTO.Nombre + " ya existe.";
+        //        return (respuesta);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        respuesta.Mensaje = "Error: " + ex.Message;
+        //        if (ex.InnerException != null)
+        //        {
+        //            respuesta.Mensaje += " Inner Exception: " + ex.InnerException.Message;
+        //        }
+        //        return (respuesta);
+        //    }
+        //}
 
         public async Task<Confirmacion<RemeraDTO>> PutRemera(int ID, RemeraDTO remeraDTO)
         {

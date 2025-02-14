@@ -21,7 +21,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpClient();
 builder.Services.AddDbContext<PersicufContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -49,6 +49,7 @@ builder.Services.AddScoped<IUbicacionServicio, UbicacionServicio>();
 builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 builder.Services.AddScoped<IZapatoServicio, ZapatoServicio>();
 builder.Services.AddScoped<IJWT, JWT>();
+builder.Services.AddScoped<IEnvioAPIServicio, EnvioAPIServicio>();
 var app = builder.Build();
 
 /*using (var scope = app.Services.CreateScope())

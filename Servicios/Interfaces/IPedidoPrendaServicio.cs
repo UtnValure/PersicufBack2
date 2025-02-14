@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         Task<Confirmacion<PedidoPrendaDTO>> PostPedidoPrenda(PedidoPrendaDTO PedidoPrendaDTO);
         Task<Confirmacion<PedidoPrenda>> DeletePedidoPrenda(int ID);
         Task<Confirmacion<PedidoPrendaDTO>> PutPedidoPrenda(int ID, PedidoPrendaDTO PedidoPrendaDTO);
+        Task<Confirmacion<string>> PostPedidoCliente(PedidoClienteDTO pedidoClienteDTO);
     }
 }
