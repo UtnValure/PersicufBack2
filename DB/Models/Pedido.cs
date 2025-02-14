@@ -18,6 +18,9 @@ namespace DB.Models
         public float PrecioTotal { get; set; }
 
         [Required]
+        public int NroSeguimiento { get; set; }
+
+        [Required]
         public int DomicilioID { get; set; }
 
         [ForeignKey("DomicilioID")]

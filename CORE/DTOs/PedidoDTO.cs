@@ -12,6 +12,7 @@ namespace CORE.DTOs
         public float PrecioTotal { get; set; }
         public int DomicilioID { get; set; }
         public int UsuarioID { get; set; }
+        public int NroSeguimiento { get; set; }
 
     }
 

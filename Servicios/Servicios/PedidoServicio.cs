@@ -66,6 +66,7 @@ namespace Servicios.Servicios
                             PrecioTotal = pedido.PrecioTotal,
                             DomicilioID = pedido.DomicilioID,
                             UsuarioID = pedido.UsuarioID,
+                            NroSeguimiento = pedido.NroSeguimiento,
                         });
                     }
                     respuesta.Exito = true;
@@ -105,6 +106,7 @@ namespace Servicios.Servicios
                             PrecioTotal = pedido.PrecioTotal,
                             DomicilioID = pedido.DomicilioID,
                             UsuarioID = pedido.UsuarioID,
+                            NroSeguimiento = pedido.NroSeguimiento,
                         });
                     }
                     respuesta.Exito = true;
@@ -165,6 +167,7 @@ namespace Servicios.Servicios
                     pedidoBD.PrecioTotal = pedidoDTO.PrecioTotal;
                     pedidoBD.DomicilioID = pedidoDTO.DomicilioID;
                     pedidoBD.UsuarioID = pedidoDTO.UsuarioID;
+                    pedidoBD.NroSeguimiento = pedidoDTO.NroSeguimiento;
 
                     await _context.SaveChangesAsync();
                     respuesta.Datos = pedidoBD.Adapt<PedidoDTO>();
