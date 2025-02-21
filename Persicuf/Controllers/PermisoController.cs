@@ -70,7 +70,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarPermiso")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Confirmacion<Permiso>>> eliminarPermiso(int ID)
         {
             var respuesta = await _servicio.DeletePermiso(ID);

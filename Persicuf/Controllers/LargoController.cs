@@ -70,7 +70,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarLargo")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Confirmacion<Largo>>> eliminarLargo(int ID)
         {
             var respuesta = await _servicio.DeleteLargo(ID);

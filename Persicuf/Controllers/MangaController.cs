@@ -71,7 +71,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarManga")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Confirmacion<Manga>>> eliminarManga(int ID)
         {
             var respuesta = await _servicio.DeleteManga(ID);

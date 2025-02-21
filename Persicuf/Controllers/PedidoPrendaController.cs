@@ -86,7 +86,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarPedidoPrenda")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Confirmacion<PedidoPrenda>>> eliminarPedidoPrenda(int ID)
         {
             var respuesta = await _servicio.DeletePedidoPrenda(ID);

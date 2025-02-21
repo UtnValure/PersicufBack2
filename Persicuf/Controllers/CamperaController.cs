@@ -87,7 +87,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarCampera")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Confirmacion<Campera>>> eliminarCampera(int ID)
         {
             var respuesta = await _servicio.DeleteCampera(ID);

@@ -85,7 +85,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarMaterial")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Confirmacion<Material>>> eliminarMaterial(int ID)
         {
             var respuesta = await _servicio.DeleteMaterial(ID);

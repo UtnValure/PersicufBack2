@@ -86,7 +86,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarRemera")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Confirmacion<Remera>>> eliminarRemera(int ID)
         {
             var respuesta = await _servicio.DeleteRemera(ID);
