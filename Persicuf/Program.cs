@@ -9,19 +9,19 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ConfiguraciÛn de CORS para permitir solicitudes desde tu frontend
+// Configuraci√≥n de CORS para permitir solicitudes desde tu frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")  // Aseg˙rate de que este sea el origen correcto de tu frontend
+        policy.WithOrigins("persicuf.up.railway.app")  // Aseg√∫rate de que este sea el origen correcto de tu frontend
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();  // Permite el uso de credenciales (como cookies o encabezados de autorizaciÛn)
+              .AllowCredentials();  // Permite el uso de credenciales (como cookies o encabezados de autorizaci√≥n)
     });
 });
 
-// ConfiguraciÛn de autenticaciÛn JWT
+// Configuraci√≥n de autenticaci√≥n JWT
 builder.Services.AddAuthentication(opcionesDeAutenticacion =>
 {
     opcionesDeAutenticacion.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -40,17 +40,17 @@ builder.Services.AddAuthentication(opcionesDeAutenticacion =>
     };
 });
 
-// Servicios de autorizaciÛn
+// Servicios de autorizaci√≥n
 builder.Services.AddAuthorization();
 
-// ConfiguraciÛn de servicios y DbContext
+// Configuraci√≥n de servicios y DbContext
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => { // Autenticar en Swagger
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Persicuf", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = @"Encabezado de autorizaciÛn JWT utilizando el esquema Bearer. \r\n\r\n
+        Description = @"Encabezado de autorizaci√≥n JWT utilizando el esquema Bearer. \r\n\r\n
                           Ingresamos la palabra 'Bearer', luego un espacio y el token.
                           \r\n\r\nPor ejemplo: 'Bearer fedERGeWefrt5t45e5g5g4f643333uyhr'",
         Name = "Authorization",
@@ -78,11 +78,11 @@ builder.Services.AddSwaggerGen(c => { // Autenticar en Swagger
 });
 builder.Services.AddHttpClient();
 
-// ConfiguraciÛn de la base de datos (en este caso, usando PostgreSQL)
+// Configuraci√≥n de la base de datos (en este caso, usando PostgreSQL)
 builder.Services.AddDbContext<PersicufContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));  // Aseg˙rate de que la cadena de conexiÛn sea correcta
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));  // Aseg√∫rate de que la cadena de conexi√≥n sea correcta
 
-// InyecciÛn de dependencias de los servicios
+// Inyecci√≥n de dependencias de los servicios
 builder.Services.AddScoped<IColorServicio, ColorServicio>();
 builder.Services.AddScoped<ICamperaServicio, CamperaServicio>();
 builder.Services.AddScoped<ICorteCuelloServicio, CorteCuelloServicio>();
@@ -110,14 +110,14 @@ builder.Services.AddScoped<IEnvioAPIServicio, EnvioAPIServicio>();
 
 var app = builder.Build();
 
-// MigraciÛn autom·tica de la base de datos (si es necesario)
+// Migraci√≥n autom√°tica de la base de datos (si es necesario)
 //using (var scope = app.Services.CreateScope())
 //{
 //    var context = scope.ServiceProvider.GetRequiredService<PersicufContext>();
 //    context.Database.Migrate();  // Aplica migraciones pendientes
 //}
 
-// ConfiguraciÛn de Swagger para desarrollo (si est· en el entorno de desarrollo)
+// Configuraci√≥n de Swagger para desarrollo (si est√° en el entorno de desarrollo)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -126,7 +126,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Uso de CORS y autenticaciÛn
+// Uso de CORS y autenticaci√≥n
 app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
