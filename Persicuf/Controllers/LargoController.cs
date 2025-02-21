@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarLargo")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<LargoDTO>>> modificarLargo(int ID, LargoDTO largoDTO)
         {
             var respuesta = await _servicio.PutLargo(ID, largoDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearLargo")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<LargoDTO>>> crearLargo(LargoDTO largoDTO)
         {
             var respuesta = await _servicio.PostLargo(largoDTO);
@@ -67,6 +70,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarLargo")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Largo>>> eliminarLargo(int ID)
         {
             var respuesta = await _servicio.DeleteLargo(ID);

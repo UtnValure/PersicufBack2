@@ -39,7 +39,7 @@ namespace Servicios.Servicios
             issuer: null,
             audience: null,
             claims,
-            expires: DateTime.Now.AddHours(2),
+            expires: DateTime.Now.AddHours(24),
             signingCredentials: credentials
             );
             return new JwtSecurityTokenHandler().WriteToken(token);

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarManga")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<MangaDTO>>> modificarManga(int ID, MangaDTO mangaDTO)
         {
             var respuesta = await _servicio.PutManga(ID, mangaDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearManga")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<MangaDTO>>> crearManga(MangaDTO mangaDTO)
         {
             var respuesta = await _servicio.PostManga(mangaDTO);
@@ -68,6 +71,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarManga")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Manga>>> eliminarManga(int ID)
         {
             var respuesta = await _servicio.DeleteManga(ID);

@@ -4,6 +4,7 @@ using DB.Models;
 using Servicios.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -19,6 +20,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarMaterial")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<MaterialDTO>>> modificarMaterial(int ID, MaterialDTO materialDTO)
         {
             var respuesta = await _servicio.PutMaterial(ID, materialDTO);
@@ -49,6 +51,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearMaterial")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<MaterialDTO>>> crearMaterial(MaterialDTO materialDTO)
         {
             var respuesta = await _servicio.PostMaterial(materialDTO);
@@ -65,6 +68,7 @@ namespace Persicuf.Controllers
 
 
         [HttpGet("obtenerMateriales")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ICollection<MaterialDTOconID>>>> obtenerMateriales()
         {
             var respuesta = await _servicio.GetMaterial();
@@ -81,6 +85,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarMaterial")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Material>>> eliminarMaterial(int ID)
         {
             var respuesta = await _servicio.DeleteMaterial(ID);

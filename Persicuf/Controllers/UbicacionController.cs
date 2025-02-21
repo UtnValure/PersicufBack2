@@ -4,6 +4,7 @@ using DB.Models;
 using Servicios.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -19,6 +20,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarUbicacion")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<UbicacionDTO>>> modificarUbicacion(int ID, UbicacionDTO ubicacionDTO)
         {
             var respuesta = await _servicio.PutUbicacion(ID, ubicacionDTO);
@@ -34,6 +36,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearUbicacion")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<UbicacionDTO>>> crearUbicacion(UbicacionDTO ubicacionDTO)
         {
             var respuesta = await _servicio.PostUbicacion(ubicacionDTO);
@@ -65,6 +68,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarUbicacion")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Ubicacion>>> eliminarUbicacion(int ID)
         {
             var respuesta = await _servicio.DeleteUbicacion(ID);

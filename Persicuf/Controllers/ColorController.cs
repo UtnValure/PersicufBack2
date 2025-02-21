@@ -4,6 +4,7 @@ using DB.Models;
 using Servicios.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -19,6 +20,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarColor")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ColorDTO>>> modificarColor(int ID, ColorDTO colorDTO)
         {
             var respuesta = await _servicio.PutColor(ID, colorDTO);
@@ -49,6 +51,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearColor")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ColorDTO>>> crearColor(ColorDTO colorDTO)
         {
             var respuesta = await _servicio.PostColor(colorDTO);
@@ -80,6 +83,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarColor")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Color>>> eliminarColor(int ID)
         {
             var respuesta = await _servicio.DeleteColor(ID);

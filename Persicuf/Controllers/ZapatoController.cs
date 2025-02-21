@@ -4,6 +4,7 @@ using DB.Models;
 using Servicios.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -19,6 +20,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarZapato")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ZapatoDTO>>> modificarZapato(int ID, ZapatoDTO zapatoDTO)
         {
             var respuesta = await _servicio.PutZapato(ID, zapatoDTO);
@@ -34,6 +36,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearZapato")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ZapatoDTO>>> crearZapato(ZapatoDTO zapatoDTO)
         {
             var respuesta = await _servicio.PostZapato(zapatoDTO);
@@ -80,6 +83,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarZapato")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Zapato>>> eliminarZapato(int ID)
         {
             var respuesta = await _servicio.DeleteZapato(ID);

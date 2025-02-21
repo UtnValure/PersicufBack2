@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarPrenda")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<PrendaDTO>>> modificarPrenda(int ID, PrendaDTO prendaDTO)
         {
             var respuesta = await _servicio.PutPrenda(ID, prendaDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearPrenda")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<PrendaDTO>>> crearPrenda(PrendaDTO prendaDTO)
         {
             var respuesta = await _servicio.PostPrenda(prendaDTO);
@@ -112,6 +115,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarPrenda")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Prenda>>> eliminarPrenda(int ID)
         {
             var respuesta = await _servicio.DeletePrenda(ID);

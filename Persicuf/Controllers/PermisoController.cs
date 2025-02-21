@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarPermiso")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<PermisoDTO>>> modificarPermiso(int ID, PermisoDTO permisoDTO)
         {
             var respuesta = await _servicio.PutPermiso(ID, permisoDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearPermiso")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<PermisoDTO>>> crearPermiso(PermisoDTO permisoDTO)
         {
             var respuesta = await _servicio.PostPermiso(permisoDTO);
@@ -67,6 +70,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarPermiso")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Permiso>>> eliminarPermiso(int ID)
         {
             var respuesta = await _servicio.DeletePermiso(ID);

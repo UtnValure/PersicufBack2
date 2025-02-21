@@ -175,8 +175,8 @@ namespace Servicios.Servicios
 
                     var nuevoEnvio = new EnvioDTO
                     {
-                        descripcion = "Envío de prenda Persicuf Nro: "+pedido.PedidoID,
-                        hora = "12:30",
+                        descripcion = "Envío de prenda Persicuf Nro: " + pedido.PedidoID,
+                        hora = "15:30",
                         pesoGramos = 230,
                         reserva = true,
                         origen = new Direccion
@@ -201,7 +201,7 @@ namespace Servicios.Servicios
                     };
 
                     var respuestaEnvio = await _envioAPIServicio.CrearEnvio(nuevoEnvio);
-                    
+
 
                     if (string.IsNullOrEmpty(respuestaEnvio.Datos))
                     {
@@ -221,7 +221,7 @@ namespace Servicios.Servicios
 
                     await _pedidoServicio.PutPedido(pedido.PedidoID, pedido2);
 
-                    respuesta.Datos = "Numero de seguimiento: "+nroSeguimiento;
+                    respuesta.Datos = "";
                     respuesta.Exito = true;
                     respuesta.Mensaje = "Pedido creado con éxito!";
                     return respuesta;

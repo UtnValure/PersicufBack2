@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarImagen")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ImagenDTO>>> modificarImagen(int ID, ImagenDTO imagenDTO)
         {
             var respuesta = await _servicio.PutImagen(ID, imagenDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearImagen")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ImagenDTO>>> crearImagen([FromBody] ImagenDTO imagenDTO)
         {
             if (imagenDTO?.Path == null || imagenDTO.Path.Length == 0)
@@ -73,6 +76,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarImagen")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Imagen>>> eliminarImagen(int ID)
         {
             var respuesta = await _servicio.DeleteImagen(ID);

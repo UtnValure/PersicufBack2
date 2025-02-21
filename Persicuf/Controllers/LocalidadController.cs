@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarLocalidad")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<LocalidadDTO>>> modificarLocalidad(int ID, LocalidadDTO localidadDTO)
         {
             var respuesta = await _servicio.PutLocalidad(ID, localidadDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearLocalidad")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<LocalidadDTO>>> crearLocalidad(LocalidadDTO localidadDTO)
         {
             var respuesta = await _servicio.PostLocalidad(localidadDTO);
@@ -67,6 +70,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarLocalidad")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Localidad>>> eliminarLocalidad(int ID)
         {
             var respuesta = await _servicio.DeleteLocalidad(ID);

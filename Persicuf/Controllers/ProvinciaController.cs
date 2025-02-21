@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarProvincia")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ProvinciaDTO>>> modificarProvincia(int ID, ProvinciaDTO provinciaDTO)
         {
             var respuesta = await _servicio.PutProvincia(ID, provinciaDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearProvincia")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<ProvinciaDTO>>> crearProvincia(ProvinciaDTO provinciaDTO)
         {
             var respuesta = await _servicio.PostProvincia(provinciaDTO);
@@ -67,6 +70,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpDelete("eliminarProvincia")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Provincia>>> eliminarProvincia(int ID)
         {
             var respuesta = await _servicio.DeleteProvincia(ID);

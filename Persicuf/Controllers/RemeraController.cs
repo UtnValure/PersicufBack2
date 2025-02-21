@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Persicuf.Controllers
 {
@@ -21,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarRemera")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<RemeraDTO>>> modificarRemera(int ID, RemeraDTO remeraDTO)
         {
             var respuesta = await _servicio.PutRemera(ID, remeraDTO);
@@ -36,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearRemera")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<RemeraDTO>>> crearRemera(RemeraDTO remeraDTO)
         {
             var respuesta = await _servicio.PostRemera(remeraDTO);
@@ -83,6 +86,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarRemera")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Remera>>> eliminarRemera(int ID)
         {
             var respuesta = await _servicio.DeleteRemera(ID);

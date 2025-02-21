@@ -4,9 +4,12 @@ using DB.Models;
 using Servicios.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Persicuf.Controllers
 {
+    [EnableCors("AllowFrontend")]
     [Route("api/[controller]")]
     [ApiController]
     public class CamperaController : ControllerBase
@@ -19,6 +22,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPut("modificarCampera")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<CamperaDTO>>> modificarCampera(int ID, CamperaDTO camperaDTO)
         {
             var respuesta = await _servicio.PutCampera(ID, camperaDTO);
@@ -34,6 +38,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearCampera")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<CamperaDTO>>> crearCampera(CamperaDTO camperaDTO)
         {
             var respuesta = await _servicio.PostCampera(camperaDTO);
@@ -50,6 +55,7 @@ namespace Persicuf.Controllers
 
 
         [HttpGet("obtenerCamperas")]
+        
         public async Task<ActionResult<Confirmacion<ICollection<CamperaDTOconID>>>> obtenerCamperas()
         {
             var respuesta = await _servicio.GetCampera();
@@ -81,6 +87,7 @@ namespace Persicuf.Controllers
 
 
         [HttpDelete("eliminarCampera")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<Campera>>> eliminarCampera(int ID)
         {
             var respuesta = await _servicio.DeleteCampera(ID);
