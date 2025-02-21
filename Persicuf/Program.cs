@@ -111,11 +111,11 @@ builder.Services.AddScoped<IEnvioAPIServicio, EnvioAPIServicio>();
 var app = builder.Build();
 
 // Migración automática de la base de datos (si es necesario)
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<PersicufContext>();
-    context.Database.Migrate();  // Aplica migraciones pendientes
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<PersicufContext>();
+//    context.Database.Migrate();  // Aplica migraciones pendientes
+//}
 
 // Configuración de Swagger para desarrollo (si está en el entorno de desarrollo)
 if (app.Environment.IsDevelopment())

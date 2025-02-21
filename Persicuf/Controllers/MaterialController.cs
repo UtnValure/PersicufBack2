@@ -68,7 +68,7 @@ namespace Persicuf.Controllers
 
 
         [HttpGet("obtenerMateriales")]
-        [Authorize]
+        
         public async Task<ActionResult<Confirmacion<ICollection<MaterialDTOconID>>>> obtenerMateriales()
         {
             var respuesta = await _servicio.GetMaterial();
