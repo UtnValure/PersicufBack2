@@ -101,6 +101,7 @@ namespace Persicuf.Controllers
         }
 
         [HttpPatch("modificarPermisoUsuario")]
+        [Authorize]
         public async Task<ActionResult<Confirmacion<UsuarioDTOconID>>> modificarUsuarioRol(int ID, int PermisoID)
         {
             var respuesta = await _servicio.PatchUsuarioPermiso(ID, PermisoID);
@@ -170,6 +171,7 @@ namespace Persicuf.Controllers
 
         //POST: UsuarioController/logout
         [HttpPost("logout")]
+
         public IActionResult Logout()
         {
 
