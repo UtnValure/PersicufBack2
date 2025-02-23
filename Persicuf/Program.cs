@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("persicuf.up.railway.app")  // Asegúrate de que este sea el origen correcto de tu frontend
+        policy.WithOrigins("https://persicuf.up.railway.app")  // Asegúrate de que este sea el origen correcto de tu frontend
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();  // Permite el uso de credenciales (como cookies o encabezados de autorización)
