@@ -36,7 +36,6 @@ namespace Persicuf.Controllers
         }
 
         [HttpPost("crearUsuario")]
-        [Authorize]
         public async Task<ActionResult<Confirmacion<UsuarioDTO>>> crearUsuario(UsuarioDTO usuarioDTO)
         {
             var respuesta = await _servicio.PostUsuario(usuarioDTO);
